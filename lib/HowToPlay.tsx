@@ -8,14 +8,14 @@ export default function HowToPlay({mode="live",compact=false}:{mode?:"solo"|"liv
   ["🔒","Lock it in","Tap LOCK IN to save your answer."],
   ["🎰","Pull the lever","The lever drops, the reels spin, and the owner is revealed."],
   ["🎤","Hear the backstory from our team","LaShea, Benjamin, or Joshua shares the real story behind the clue."],
-  ["🏆","Top guesser wins a prize","Every right answer fills your pot of gold. The top guesser wins a $25 virtual Visa card!"]
+  ["🏆","Top guesser wins a prize","Every right answer fills your pot of gold. The top guesser wins a prize!"]
  ]:[
   ["📱","Join on your phone","Scan the QR code, enter the course PIN, and use your real first and last name."],
   ["🔍","Read the clue","Each clue is a true fact about LaShea, Benjamin, or Joshua."],
   ["⏱️",`Guess in ${ROUND_SECONDS} seconds`,"Tap who you think it is, then LOCK IN before time runs out."],
   ["🎰","Watch the lever pull","The host pulls the lever, the reels spin, and the owner is revealed."],
   ["🎤","Hear the backstory from our team","LaShea, Benjamin, or Joshua shares the real story behind the clue."],
-  ["🏆","Top guesser wins a prize","The top guesser wins a $25 virtual Visa card, sent to your USD student email. Ties go to the fastest correct answers."]
+  ["🏆","Top guesser wins a prize","The top guesser wins a prize! Ties go to the fastest correct answers."]
  ];
  return <details className={`how-to-play ${compact?"is-compact":""}`} open={!compact}>
   <summary><span>♠</span> HOW TO PLAY <span>♦</span></summary>
