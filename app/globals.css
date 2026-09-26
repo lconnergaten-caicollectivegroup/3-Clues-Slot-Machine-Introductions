@@ -107,3 +107,32 @@ header p{color:#fff3c6;font-weight:800;font-size:17px;margin:2px 0 0}
 footer{color:#ffe18c;font-weight:800;letter-spacing:.06em}footer a{color:#ff8fd0}
 @media(max-width:650px){header{flex-direction:column}.header-right{flex-direction:row!important;align-items:center!important;justify-content:space-between;width:100%}.team{text-align:left}.score{width:76px;height:76px}.eyebrow .course{font-size:10px}}
 @media(prefers-reduced-motion:reduce){header::before,header h1{animation:none}}
+
+/* Date badge */
+.date-badge{display:inline-block;padding:5px 12px;border-radius:999px;background:#0b0826cc;border:2px solid #f6ca77;color:#ffe18c;font-weight:900;letter-spacing:.06em;box-shadow:0 0 10px #ffcf5744}
+/* Slot machine lever: drops down when revealing */
+.slot-assembly{margin-right:46px!important}
+.lever{position:absolute;right:-48px;top:18%;width:40px;height:62%;pointer-events:none;z-index:3}
+.lever-slot{position:absolute;left:4px;top:40%;width:22px;height:46px;border-radius:8px;background:linear-gradient(90deg,#8f5a22,#ffd275 45%,#8f5a22);border:2px solid #5a3413;box-shadow:0 3px 0 #5a3413}
+.lever-hub{position:absolute;left:8px;top:calc(40% + 14px);width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3c6,#b9822e);border:2px solid #5a3413}
+.lever-arm{position:absolute;left:12px;bottom:calc(60% - 22px);width:7px;height:95%;border-radius:4px;background:linear-gradient(90deg,#a9b3c8,#fff 45%,#6f7890);transform-origin:50% 100%;transform:rotate(8deg);transition:transform .25s}
+.lever-ball{position:absolute;left:50%;top:-16px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9cc9,#e2186e 55%,#8a0b3f);box-shadow:0 0 14px #ff4fb0cc}
+.lever.is-pulled .lever-arm{animation:leverPull 1.1s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes leverPull{0%{transform:rotate(8deg)}28%{transform:rotate(172deg)}60%{transform:rotate(165deg)}100%{transform:rotate(8deg)}}
+@media(max-width:650px){.slot-assembly{margin-right:30px!important}.lever{right:-32px;width:28px}.lever-ball{width:22px;height:22px;margin-left:-11px;top:-11px}.lever-slot{width:16px;height:34px}.lever-hub{left:5px;width:11px;height:11px}.lever-arm{left:8px;width:5px}}
+/* Pot of gold + torero */
+.score-row{display:flex;align-items:flex-end;gap:8px}
+.pot-of-gold{position:relative;display:flex;align-items:flex-end;gap:2px;height:92px}
+.torero{width:46px;height:72px;filter:drop-shadow(0 0 6px #ffcf5766)}
+.torero .throw-arm{transform-origin:40px 38px}
+.torero.is-throwing .throw-arm{animation:toss .7s ease-out both}
+@keyframes toss{0%{transform:rotate(60deg)}45%{transform:rotate(-35deg)}100%{transform:rotate(0)}}
+.pot{position:relative;width:62px}.pot svg{width:62px;height:54px;display:block;filter:drop-shadow(0 0 10px #ffd54a88)}
+.pot b{position:absolute;left:0;right:0;bottom:6px;text-align:center;color:#ffe18c;font-size:17px;font-weight:900;text-shadow:0 1px 0 #000}
+.pot.is-catching{animation:potBounce .5s .75s ease-out both}
+@keyframes potBounce{40%{transform:translateY(-6px) scale(1.08)}100%{transform:none}}
+.coin-arc{position:absolute;left:38px;top:8px;width:60px;height:60px;pointer-events:none}
+.coin-arc i{position:absolute;left:0;top:10px;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff7c2,#ffcf3a 55%,#b9822e);border:1px solid #8a5b12;opacity:0;animation:coinFly .9s ease-in both}
+@keyframes coinFly{0%{opacity:1;transform:translate(0,0) rotateY(0)}50%{opacity:1;transform:translate(22px,-26px) rotateY(360deg)}100%{opacity:0;transform:translate(44px,22px) rotateY(720deg)}}
+@media(max-width:650px){.pot-of-gold{height:78px}.torero{width:36px;height:58px}.pot,.pot svg{width:50px}.pot svg{height:44px}}
+@media(prefers-reduced-motion:reduce){.lever.is-pulled .lever-arm,.torero .throw-arm,.coin-arc i,.pot.is-catching{animation:none}}

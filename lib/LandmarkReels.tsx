@@ -23,7 +23,7 @@ export default function LandmarkReels({spinning=false,revealOwner,round=0}:{spin
    const stop=landmarks[index];
    const tiles=spinning?[...landmarks.slice(index),...landmarks.slice(0,index),...landmarks.slice(index),...landmarks.slice(0,index)]:[stop];
    return <div className="landmark-tile" key={i}>
-    <div className="reel-window"><div className="reel-track" style={{animationDelay:`-${i*.17}s`}}>{tiles.map((tile,j)=><div className="reel-symbol" key={`${i}-${j}`}>
+    <div className="reel-window"><div className="reel-track" style={{animationDelay:`${.35+i*.15}s`}}>{tiles.map((tile,j)=><div className="reel-symbol" key={`${i}-${j}`}>
      {!spinning&&i===1&&revealOwner===0?<Image src="/people/lashea.png" alt="LaShea" fill sizes="(max-width: 650px) 29vw, 260px" className="portrait-symbol" priority/>:
       !spinning&&i===1&&revealOwner===1?<Image src="/people/benjamin-silhouette.jpeg" alt="Benjamin silhouette" fill sizes="(max-width: 650px) 29vw, 260px" className="benjamin-reel-symbol"/>:
       !spinning&&i===1&&revealOwner===2?<Image src="/people/joshua-silhouette.jpeg" alt="Joshua silhouette" fill sizes="(max-width: 650px) 29vw, 260px" className="joshua-reel-symbol"/>:
@@ -32,6 +32,7 @@ export default function LandmarkReels({spinning=false,revealOwner,round=0}:{spin
     </div>)}</div></div>
     <span>{spinning?"✦ ✦ ✦":i===1&&revealOwner!==undefined?revealOwner===0?"LASHEA C.G.":revealOwner===1?"BENJAMIN F.":"JOSHUA L.":stop.label}</span>
    </div>})}</div>
+  <div className={`lever ${spinning?"is-pulled":""}`} aria-hidden="true"><span className="lever-slot"/><span className="lever-arm"><span className="lever-ball"/></span><span className="lever-hub"/></div>
   <div className="slot-payline" aria-hidden="true"><i/><span>◆ JACKPOT ◆</span><i/></div>
  </div>
 }
