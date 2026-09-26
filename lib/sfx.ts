@@ -89,15 +89,11 @@ export function coinShower(count = 16, spreadMs = 1400) {
 /** Short jackpot fanfare for a right answer. */
 export function jackpot() {
   const c = ac(); if (!c) return; const t = c.currentTime;
-  [523, 659, 784, 1047].forEach((f, i) => { tone(f, t + i * 0.09, 0.22, "triangle", 0.22); tone(f * 2, t + i * 0.09, 0.18, "sine", 0.06); });
-  tone(1047, t + 0.4, 0.6, "triangle", 0.2); tone(1319, t + 0.4, 0.6, "sine", 0.12); tone(1568, t + 0.4, 0.6, "sine", 0.1);
+  tone(2093, t, 0.6, "sine", 0.16); tone(3136, t, 0.45, "sine", 0.07);
 }
 
 /** Soft "womp" for a miss. */
-export function miss() {
-  const c = ac(); if (!c) return; const t = c.currentTime;
-  tone(330, t, 0.25, "triangle", 0.18, 260); tone(262, t + 0.22, 0.4, "triangle", 0.16, 196);
-}
+export function miss() { /* no sound on a miss */ }
 
 /** One ratchet tick of a spinning reel (call repeatedly while reels spin). */
 export function reelTick() {
@@ -108,14 +104,6 @@ export function reelTick() {
 /** Original triumphant victory fanfare for the winner announcement (~4s). */
 export function victory() {
   const c = ac(); if (!c) return; const t = c.currentTime;
-  const notes: [number, number, number][] = [
-    [392, 0, .18], [392, .2, .18], [392, .4, .18], [523, .6, .7],
-    [466, 1.35, .18], [523, 1.55, .18], [587, 1.75, .5], [659, 2.3, .25], [784, 2.6, 1.3],
-  ];
-  notes.forEach(([f, d, len]) => { tone(f, t + d, len, "sawtooth", 0.09); tone(f, t + d, len, "triangle", 0.18); tone(f * 2, t + d, len * .8, "sine", 0.05); });
-  // chord swell under the last note
-  [392, 494, 587].forEach((f) => tone(f, t + 2.6, 1.4, "triangle", 0.1));
-  // cymbal shimmer + coin sparkle
-  noise(t + 2.6, 1.2, 0.18, 7000);
-  for (let i = 0; i < 12; i++) tone(2600 + Math.random() * 1800, t + 2.7 + i * 0.09, 0.14, "sine", 0.07);
+  [0, 0.35, 0.7].forEach((d) => { tone(2093, t + d, 0.5, "sine", 0.15); tone(3136, t + d, 0.4, "sine", 0.06); });
+  setTimeout(() => coinShower(60, 3500), 200);
 }
