@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SlotLever from "./SlotLever";
 
 // Photographs and building names are from USD's official building gallery.
 export const landmarks=[
@@ -32,7 +33,7 @@ export default function LandmarkReels({spinning=false,revealOwner,round=0}:{spin
     </div>)}</div></div>
     <span>{spinning?"✦ ✦ ✦":i===1&&revealOwner!==undefined?revealOwner===0?"LASHEA C.G.":revealOwner===1?"BENJAMIN F.":"JOSHUA L.":stop.label}</span>
    </div>})}</div>
-  <div className={`lever ${spinning?"is-pulled":""}`} aria-hidden="true"><span className="lever-slot"/><span className="lever-arm"><span className="lever-ball"/></span><span className="lever-hub"/></div>
+  <SlotLever pulled={spinning}/>
   <div className="slot-payline" aria-hidden="true"><i/><span>◆ JACKPOT ◆</span><i/></div>
  </div>
 }

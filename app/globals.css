@@ -156,3 +156,42 @@ footer{color:#ffe18c;font-weight:800;letter-spacing:.06em}footer a{color:#ff8fd0
 .pot.is-float{width:72px!important}.pot.is-float svg{width:72px!important;height:63px!important}.pot.is-float b{font-size:19px!important;bottom:7px!important}
 @keyframes floatIn{from{transform:translateY(-20px) scale(.8);opacity:0}}
 @media(max-width:650px){.pot,.pot svg{width:74px!important}.pot svg{height:65px!important}.pot.is-float,.pot.is-float svg{width:58px!important}.pot.is-float svg{height:51px!important}}
+
+/* ===== Header v3: cleaner hierarchy ===== */
+header{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center!important;gap:18px 28px!important;padding:22px 26px 22px!important;border-radius:26px!important;background:radial-gradient(120% 140% at 0% 0%,#4a1d86 0,#261052 45%,#12092f 100%)!important;border:2px solid #f6ca77!important;box-shadow:0 0 0 5px #1a0c3a,0 0 0 7px #b8872f,0 8px 0 7px #6e4415,0 0 40px #ff4fb055!important}
+header::before{inset:-13px!important;border-radius:32px!important;background:radial-gradient(circle,#fff6c9 0 2.4px,#ffcf57 2.6px 3.6px,#0000 4.4px) 0 0/20px 20px!important;padding:5px!important;animation:bulbs 1.2s steps(2) infinite!important;filter:drop-shadow(0 0 5px #ffcf57)!important}
+.eyebrow{gap:8px!important;margin-bottom:12px!important}
+.eyebrow .course{font-size:11px!important;letter-spacing:.22em!important;color:#f6ca77!important;opacity:1!important;font-weight:800}
+.eyebrow a.assignment,.date-badge{height:28px;display:inline-flex!important;align-items:center;padding:0 14px!important;font-size:11.5px;letter-spacing:.08em;border-radius:999px}
+.eyebrow a.assignment{background:linear-gradient(180deg,#ff6fbf,#c02d8e)!important;border:1px solid #ffc1e3;box-shadow:0 2px 0 #6e1f5c,0 0 16px #ff4fb066!important}
+.date-badge{background:#ffffff10!important;border:1px solid #f6ca77aa!important;box-shadow:none!important;color:#ffe9a6!important}
+.brand-title{display:flex;align-items:center;gap:14px;margin:0!important;animation:none!important;text-shadow:none!important;line-height:1}
+.title-text{font-size:clamp(36px,6.2vw,70px);font-weight:950;letter-spacing:-.02em;background:linear-gradient(180deg,#fffbe6 0%,#ffe38a 38%,#f2b22c 62%,#c27a12 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:1px #fff3c680;filter:drop-shadow(0 3px 0 #7a2a6a) drop-shadow(0 0 18px #ff4fb088) drop-shadow(0 0 36px #ffd35c55)}
+.title-suit{font-size:clamp(20px,3vw,32px);color:#ff5aa5;text-shadow:0 0 12px #ff4fb0;opacity:.95}.title-suit:last-child{color:#ffd35c;text-shadow:0 0 12px #ffcf57}
+.tagline{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:14px 0 0!important;font-size:15px!important;font-weight:800!important;letter-spacing:.14em;text-transform:uppercase;color:#e9dcff!important}
+.tagline i{font-style:normal;color:#f6ca77;font-size:11px}.tagline .luck{color:#7df0a3;text-shadow:0 0 10px #2fbf5f88}
+.header-right{flex-direction:row!important;align-items:center!important;gap:16px!important;margin:0!important}
+.team{align-self:stretch;justify-content:center;padding:12px 18px!important;border-radius:16px!important;background:linear-gradient(180deg,#ffffff12,#ffffff06)!important;border:1px solid #f6ca77aa!important;box-shadow:inset 0 1px 0 #ffffff22!important;text-align:left!important;gap:4px!important}
+.team b{font-size:10px!important;letter-spacing:.24em!important;text-transform:uppercase;color:#f6ca77!important;margin-bottom:4px!important;padding-bottom:6px;border-bottom:1px solid #f6ca7755}
+.team span{font-size:14px;color:#fff!important;font-weight:700!important}
+.score-row{align-items:center!important;gap:14px!important}
+.score{width:104px!important;height:104px!important;font-size:10px!important;letter-spacing:.2em;background:radial-gradient(circle,#2a1558 0 52%,#fff3c6 53% 55%,#0000 56%),repeating-conic-gradient(from 7.5deg,#f6ca77 0 15deg,#c02d8e 15deg 30deg)!important;border:3px solid #fff3c6!important;box-shadow:0 5px 0 #7a4d0f,0 0 22px #ff4fb077,inset 0 0 0 5px #0000!important}
+.score b{font-size:26px!important;letter-spacing:0;display:block;margin-top:2px}
+/* pot v3 */
+.pot{width:auto!important;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 6px 10px #0008)!important}
+.pot svg{width:112px!important;height:104px!important}
+.pot .pot-count{position:static!important;margin-top:-4px;padding:3px 12px;border-radius:999px;background:linear-gradient(180deg,#ffe27a,#d99a1c);color:#3a2206!important;text-shadow:none!important;font-size:15px!important;font-weight:950;box-shadow:0 2px 0 #7a4d0f,0 0 12px #ffcf5788}
+.pot .pot-count small{font-size:10px;opacity:.75;margin-left:1px}
+.pot-glints path{animation:glint 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.pot-glints path:nth-child(2){animation-delay:.6s}.pot-glints path:nth-child(3){animation-delay:1.2s}
+@keyframes glint{0%,100%{opacity:.2;transform:scale(.5)}50%{opacity:1;transform:scale(1.2)}}
+.pot.is-float svg{width:78px!important;height:72px!important}.pot.is-float .pot-count{font-size:12px!important}
+/* lever v3 */
+.lever{right:-66px!important;top:8%!important;width:64px!important;height:86%!important}
+.lever svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 6px 8px #0009)}
+.lever .lever-arm{transform-box:view-box;transform-origin:42px 180px;animation:none;transition:none}
+.lever.is-pulled .lever-arm{animation:leverPull2 1s cubic-bezier(.45,.05,.3,1) both}
+@keyframes leverPull2{0%{transform:scaleY(1)}35%{transform:scaleY(-.82)}50%{transform:scaleY(-.78)}100%{transform:scaleY(1)}}
+.slot-assembly{margin-right:70px!important}
+@media(max-width:900px){header{grid-template-columns:1fr!important}.header-right{justify-content:space-between;flex-wrap:wrap}}
+@media(max-width:650px){header{padding:18px 16px!important}.tagline{font-size:12px!important;letter-spacing:.1em}.team span{font-size:12.5px}.score{width:80px!important;height:80px!important}.score b{font-size:20px!important}.pot svg{width:84px!important;height:78px!important}.lever{right:-44px!important;width:42px!important}.slot-assembly{margin-right:46px!important}.eyebrow a.assignment,.date-badge{font-size:10px;height:auto;padding:5px 11px!important}}
+@media(prefers-reduced-motion:reduce){.lever.is-pulled .lever-arm,.pot-glints path{animation:none}}
