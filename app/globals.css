@@ -82,3 +82,4 @@ footer{opacity:.9;color:#edcdea}footer a{color:#ffe09d}
 .award{padding:10px 0}.award span{display:block;letter-spacing:.14em;font-weight:900;color:#ffe18c}.winner-name{font-size:clamp(34px,7vw,64px)!important;margin:8px 0;text-shadow:0 3px 0 #b86a31,0 0 22px #ffd35c;animation:winnerPop .9s ease-out both}.winner-score{font-size:22px;font-weight:900}.confetti{font-size:34px;letter-spacing:.2em;animation:confettiBounce 1.4s ease-in-out infinite alternate}.fine{font-size:12px;opacity:.8}
 @keyframes winnerPop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.12);opacity:1}100%{transform:scale(1)}}
 @keyframes confettiBounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+.prize{display:inline-block;margin-top:6px;padding:8px 14px;border-radius:999px;background:#ffe18c;color:#2b1d4a;font-weight:900;font-size:16px;box-shadow:0 3px 0 #b86a31}
