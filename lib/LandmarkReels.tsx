@@ -26,6 +26,7 @@ export default function LandmarkReels({spinning=false,revealOwner,round=0}:{spin
     <div className="reel-window"><div className="reel-track" style={{animationDelay:`-${i*.17}s`}}>{tiles.map((tile,j)=><div className="reel-symbol" key={`${i}-${j}`}>
      {!spinning&&i===1&&revealOwner===0?<Image src="/people/lashea.png" alt="LaShea" fill sizes="(max-width: 650px) 29vw, 260px" className="portrait-symbol" priority/>:
       !spinning&&i===1&&revealOwner===1?<Image src="/people/benjamin-silhouette.jpeg" alt="Benjamin silhouette" fill sizes="(max-width: 650px) 29vw, 260px" className="benjamin-reel-symbol"/>:
+      !spinning&&i===1&&revealOwner===2?<Image src="/people/joshua-silhouette.jpeg" alt="Joshua silhouette" fill sizes="(max-width: 650px) 29vw, 260px" className="joshua-reel-symbol"/>:
       !spinning&&i===1&&revealOwner!==undefined?<div className="mystery-symbol" aria-label="Revealed player">★</div>:
       <Image src={tile.src} alt={spinning?"":tile.label} fill sizes="(max-width: 650px) 29vw, 260px"/>}
     </div>)}</div></div>
