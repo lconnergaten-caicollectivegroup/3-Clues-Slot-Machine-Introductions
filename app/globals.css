@@ -198,3 +198,20 @@ header::before{inset:-13px!important;border-radius:32px!important;background:rad
 .title-text{white-space:nowrap;font-size:clamp(30px,4.4vw,58px)!important}
 .brand-title{gap:10px!important}
 @media(max-width:650px){.title-text{font-size:clamp(26px,8.4vw,40px)!important}.title-suit{font-size:18px}}
+
+/* ===== Header v4: structured layout ===== */
+header{grid-template-columns:minmax(0,1fr) auto!important;row-gap:14px!important}
+.header-meta{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:10px 16px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid #f6ca7744}
+.header-meta .course{font-size:11.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#f6ca77}
+.header-meta .date-badge{height:28px;display:inline-flex;align-items:center;padding:0 14px;font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;background:#ffffff10;border:1px solid #f6ca77aa;color:#ffe9a6}
+.header-brand{min-width:0}
+.header-brand .eyebrow{margin-bottom:10px!important}
+.header-brand .eyebrow a.assignment{font-size:12px}
+.brand-title{margin:0!important}
+.tagline{margin-top:12px!important}
+.header-right{align-self:center}
+.team{min-width:210px}
+/* keep the slot machine centered; the lever lives in the gutter */
+.slot-assembly{margin-left:auto!important;margin-right:auto!important;max-width:min(800px,calc(100% - 150px))!important}
+@media(max-width:900px){.header-right{justify-content:flex-start!important}}
+@media(max-width:650px){.header-meta .course{font-size:10px;letter-spacing:.14em}.header-meta .date-badge{font-size:10px;height:24px}.slot-assembly{max-width:calc(100% - 96px)!important}.team{min-width:0;flex:1}}
