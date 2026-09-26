@@ -1,5 +1,8 @@
+"use client";
 import Image from "next/image";
 import SlotLever from "./SlotLever";
+import {useEffect} from "react";
+import {leverPull,reelTick,reelStop} from "./sfx";
 
 // Photographs and building names are from USD's official building gallery.
 export const landmarks=[
@@ -16,6 +19,8 @@ export const landmarks=[
 ];
 
 export default function LandmarkReels({spinning=false,revealOwner,round=0,action}:{spinning?:boolean;revealOwner?:number;round?:number;action?:React.ReactNode}){
+ useEffect(()=>{if(!spinning)return;leverPull();let id:ReturnType<typeof setInterval>|undefined;const d=setTimeout(()=>{id=setInterval(reelTick,70)},350);return()=>{clearTimeout(d);if(id)clearInterval(id)}},[spinning]);
+ useEffect(()=>{if(revealOwner!==undefined&&!spinning)reelStop()},[revealOwner,spinning]);
  return <div className={`slot-assembly ${spinning?"is-spinning":""} ${revealOwner!==undefined?"has-winner":""}`} aria-label={spinning?"USD campus reels spinning":"USD campus reels stopped"}>
   <div className="slot-topline"><span>✦</span> SOLES JACKPOT <span>✦</span></div>
   <div className="machine-lights" aria-hidden="true">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>

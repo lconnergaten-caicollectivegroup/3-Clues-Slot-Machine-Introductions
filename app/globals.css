@@ -250,3 +250,6 @@ header{grid-template-columns:minmax(0,1fr) auto!important;row-gap:14px!important
 .final-in-machine{padding:10px 24px;border-radius:999px;background:#0b0826;border:2px solid #f6ca77;color:#ffe27a;font-weight:950;letter-spacing:.08em}
 @media(max-width:650px){.next-in-machine{font-size:16px!important;padding:11px 24px!important}}
 @media(prefers-reduced-motion:reduce){.next-in-machine{animation:none}}
+
+.sound-toggle{position:fixed;left:14px;bottom:14px;z-index:9001;display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:#120a33ee;border:2px solid #f6ca77;color:#ffe18c;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 0 14px #ffcf5744}
+.sound-toggle span{font-size:10px;letter-spacing:.14em}

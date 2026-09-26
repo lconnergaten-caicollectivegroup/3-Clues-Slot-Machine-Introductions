@@ -1,4 +1,5 @@
 "use client";
+import {VictoryFanfare} from "../../../lib/SoundFx";
 import {useEffect,useState} from "react";
 import HostLobby from "../../../lib/HostLobby";
 import LandmarkReels from "../../../lib/LandmarkReels";
@@ -28,6 +29,6 @@ export default function HostScreen(){
  {phase==="results"&&<div className="reel"><div className="results"><h2>WHAT THE CLASS PICKED</h2>{people.map((p,i)=><div className="result" key={p}><div><b>{p}</b><b>{Math.round(counts[i]/(qv.length||1)*100)}%</b></div><div className="result-track"><span style={{width:`${counts[i]/(qv.length||1)*100}%`}}/></div></div>)}</div></div>}
  {phase==="reveal"&&landing&&<div className="reel slot-reel"><div className="slot-content"><LandmarkReels spinning round={q}/><p className="spin-callout">LEVER PULLED — REVEALING…</p></div></div>}
  {phase==="reveal"&&!landing&&<div className="reveal"><LandmarkReels revealOwner={clues[q].owner} round={q}/><span>THE CLUE BELONGS TO…</span><h2>{people[clues[q].owner]}!</h2><div className="story-card"><b>THE BACKSTORY</b><p>{clues[q].story}</p></div></div>}
- {phase==="final"&&<div className="reveal">{winner&&<div className="award"><div className="confetti" aria-hidden="true">🎉 ✨ 🎊 ✨ 🎉</div><span>LEAD 697-01 · JACKPOT CHAMPION</span><h2 className="winner-name">🏆 {winner.display_name}</h2><p className="winner-score">{winner.score||0}/6 correct</p><p>Best at reading the room — congratulations!</p><p className="prize">🎁 Prize: $25 virtual Visa card — sent today to your USD student email</p></div>}<p className="fine">Most correct wins. Ties go to the fastest correct answers.</p></div>}
+ {phase==="final"&&<div className="reveal"><VictoryFanfare/>{winner&&<div className="award"><div className="confetti" aria-hidden="true">🎉 ✨ 🎊 ✨ 🎉</div><span>LEAD 697-01 · JACKPOT CHAMPION</span><h2 className="winner-name">🏆 {winner.display_name}</h2><p className="winner-score">{winner.score||0}/6 correct</p><p>Best at reading the room — congratulations!</p><p className="prize">🎁 Prize: $25 virtual Visa card — sent today to your USD student email</p></div>}<p className="fine">Most correct wins. Ties go to the fastest correct answers.</p></div>}
  </section><footer>Three people • Six clues • One winner · <a href="https://www.sandiego.edu/facilities/building-gallery.php" target="_blank" rel="noreferrer">USD campus photos</a></footer></main>
 }

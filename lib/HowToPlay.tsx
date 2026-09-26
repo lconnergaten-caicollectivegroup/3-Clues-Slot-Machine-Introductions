@@ -5,8 +5,7 @@ export default function HowToPlay({mode="live",compact=false}:{mode?:"solo"|"liv
  const steps=mode==="solo"?[
   ["🔍","Read the clue","Each clue is a true fact about one of us three."],
   ["🤔",`Guess who — ${ROUND_SECONDS} seconds`,"Pick LaShea, Benjamin, or Joshua before the timer runs out."],
-  ["🔒","Lock it in","Tap LOCK IN to save your answer."],
-  ["🎰","Pull the lever","The lever drops, the reels spin, and the owner is revealed."],
+  ["🎰","Lock in & pull the lever","One tap locks your answer, drops the lever, and spins the reels to reveal the owner."],
   ["🎤","Hear the backstory from our team","LaShea, Benjamin, or Joshua shares the real story behind the clue."],
   ["🏆","Top guesser wins a prize","Every right answer fills your pot of gold. The top guesser wins a prize!"]
  ]:[

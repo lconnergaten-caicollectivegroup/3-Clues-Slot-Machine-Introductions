@@ -1,5 +1,6 @@
 "use client";
 import {useEffect,useRef,useState} from "react";
+import {coinShower,jackpot} from "./sfx";
 
 /**
  * Pot of gold beside the score. When `count` goes up (a right answer), a stream of
@@ -20,6 +21,7 @@ export default function PotOfGold({count}:{count:number}){
   const src=document.querySelector(".landmark-tile:nth-child(2) .reel-window")||document.querySelector(".slot-assembly");
   if(!target||!src)return;
   const done=()=>setFlash(f=>f+1);
+  jackpot();setTimeout(()=>coinShower(18,1500),250);
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){done();return}
   const a=src.getBoundingClientRect(),b=target.getBoundingClientRect();
   const sx=a.left+a.width/2,sy=a.top+a.height/2,tx=b.left+b.width/2,ty=b.top+b.height*.35,dx=tx-sx,dy=ty-sy;
