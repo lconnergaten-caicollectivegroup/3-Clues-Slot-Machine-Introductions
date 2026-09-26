@@ -255,3 +255,29 @@ header{grid-template-columns:minmax(0,1fr) auto!important;row-gap:14px!important
 .sound-toggle span{font-size:10px;letter-spacing:.14em}
 .reader-cue{margin:10px auto 4px;max-width:560px;padding:8px 14px;border-radius:12px;background:#ffe27a;color:#2b1d4a;font-weight:800;font-size:15px;text-align:center;box-shadow:0 3px 0 #a8652a}.reader-cue b{font-size:17px}
 .story-card .teller{font-size:14px!important;font-weight:900!important;color:#b8408a!important;margin:0 0 4px!important}
+
+/* Room tally */
+.room-tally{width:100%;max-width:640px;margin:0 auto;text-align:left}
+.room-tally h2{text-align:center;margin:0 0 4px;font-size:clamp(24px,4vw,40px);color:#ffe27a;text-shadow:0 0 16px #ff4fb0}
+.tally-sub{text-align:center;margin:0 0 14px;color:#e9dcff;font-weight:700}
+.tally-row{margin:10px 0}
+.tally-label{display:flex;align-items:center;gap:10px;margin-bottom:5px}.tally-label b{font-size:18px;color:#fff}.tally-label span{margin-left:auto;font-size:22px;font-weight:950;color:#ffe27a}
+.tally-label em{font-style:normal;font-size:10px;font-weight:950;letter-spacing:.14em;padding:3px 8px;border-radius:999px;background:#ff4fb0;color:#fff}
+.tally-track{position:relative;height:26px;border-radius:999px;background:#0b0826;border:1px solid #f6ca7788;overflow:hidden}
+.tally-track span{display:block;height:100%;background:linear-gradient(90deg,#7b3fe4,#ff4fb0);transition:width .8s cubic-bezier(.2,.8,.3,1)}
+.tally-row.is-lead .tally-track span{background:linear-gradient(90deg,#ffb52e,#ffe27a);box-shadow:0 0 18px #ffcf57}
+.tally-track small{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-weight:900;font-size:12px;color:#fff;text-shadow:0 1px 2px #000}
+/* Backstory timer */
+.story-timer{display:flex;align-items:center;gap:10px;margin:6px 0 8px}
+.story-timer b{min-width:64px;padding:3px 10px;border-radius:999px;background:#2b1d4a;color:#ffe27a;font-size:14px;text-align:center}
+.story-track{flex:1;height:8px;border-radius:999px;background:#e8dcc0;overflow:hidden}.story-track span{display:block;height:100%;background:linear-gradient(90deg,#2fbf5f,#ffd35c);transition:width .25s linear}
+.story-timer.is-urgent b{background:#c0164f;color:#fff;animation:urgent .5s ease-in-out infinite alternate}.story-timer.is-urgent .story-track span{background:linear-gradient(90deg,#ff3d6e,#ff9d2e)}
+.story-timer.is-done b{animation:none}
+/* Top-3 leaderboard */
+.leaderboard{max-width:520px;margin:18px auto 6px;padding:14px 16px;border-radius:18px;background:#0b0826cc;border:2px solid #f6ca77;box-shadow:0 0 22px #ffcf5744}
+.leaderboard h3{margin:0 0 10px;text-align:center;letter-spacing:.2em;font-size:14px;color:#f6ca77}
+.leaderboard ol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.leaderboard li{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;background:#ffffff0d;border:1px solid #f6ca7744;text-align:left}
+.leaderboard li.place-1{background:linear-gradient(90deg,#ffe27a33,#ffffff0d);border-color:#ffe27a;transform:scale(1.03)}
+.leaderboard .medal{font-size:28px}.leaderboard li b{flex:1;font-size:18px;color:#fff}.leaderboard .pts{font-weight:950;color:#ffe27a;font-size:18px}
+.leaderboard li.is-me{outline:2px solid #ff4fb0}
