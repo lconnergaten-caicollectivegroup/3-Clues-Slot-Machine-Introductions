@@ -1,3 +1,5 @@
+"use client";
+import {useEffect,useRef} from "react";
 import {ROUND_SECONDS} from "./game";
 
 /** "How to play" card. `mode` tailors the steps: solo play on one screen, or a live room with phones. */
@@ -16,7 +18,9 @@ export default function HowToPlay({mode="live",compact=false}:{mode?:"solo"|"liv
   ["🎤","Hear the backstory from our team","A teammate will share the real story behind each clue."],
   ["🏆","Top guesser wins a prize","The top guesser wins a prize! Ties go to the fastest correct answers."]
  ];
- return <details className={`how-to-play ${compact?"is-compact":""}`} open={!compact}>
+ const ref=useRef<HTMLDetailsElement>(null);
+ useEffect(()=>{if(ref.current&&window.matchMedia("(max-width: 650px)").matches)ref.current.open=false},[]);
+ return <details ref={ref} className={`how-to-play ${compact?"is-compact":""}`} open={!compact}>
   <summary><span>♠</span> HOW TO PLAY <span>♦</span></summary>
   <ol>{steps.map(([icon,title,body],i)=><li key={title}><i aria-hidden="true">{icon}</i><div><b>{i+1}. {title}</b><p>{body}</p></div></li>)}</ol>
  </details>;
