@@ -4,12 +4,12 @@ import LandmarkReels from "../lib/LandmarkReels";
 import PersonSilhouette from "../lib/PersonSilhouette";
 const people=["LaShea","Benjamin","Joshua"];
 const clues=[
-{owner:0,text:"I once won a pig-calling contest at the State Fair.",icon:"🐷"},
-{owner:2,text:"Mystery clue from Joshua.",icon:"✨"},
-{owner:1,text:"Mystery clue from Benjamin.",icon:"🎭"},
-{owner:0,text:"I helped someone deliver a baby in a car.",icon:"👶🏾"},
-{owner:1,text:"Second mystery clue from Benjamin.",icon:"🎲"},
-{owner:2,text:"Second mystery clue from Joshua.",icon:"💫"}
+{owner:0,text:"I once won a pig-calling contest at the State Fair.",icon:"🐷",story:"Backstory coming soon — LaShea will share how the pig-calling contest happened."},
+{owner:2,text:"Mystery clue from Joshua.",icon:"✨",story:"Backstory coming soon from Joshua."},
+{owner:1,text:"Mystery clue from Benjamin.",icon:"🎭",story:"Backstory coming soon from Benjamin."},
+{owner:0,text:"I helped someone deliver a baby in a car.",icon:"👶🏾",story:"Backstory coming soon — LaShea will share the car-delivery story."},
+{owner:1,text:"Second mystery clue from Benjamin.",icon:"🎲",story:"Second backstory coming soon from Benjamin."},
+{owner:2,text:"Second mystery clue from Joshua.",icon:"💫",story:"Second backstory coming soon from Joshua."}
 ];
 export default function Home(){
 const[q,setQ]=useState(0);const[vote,setVote]=useState<number|null>(null);const[locked,setLocked]=useState(false);const[revealed,setRevealed]=useState(false);const[score,setScore]=useState(0);const[spinning,setSpinning]=useState(false);const spinTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
