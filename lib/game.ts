@@ -11,5 +11,5 @@ export const clues = [
   {owner:2,text:"Third mystery clue from Joshua.",icon:"🌟"},
   {owner:1,text:"Third mystery clue from Benjamin.",icon:"🎯"}
 ];
-export const ROUND_SECONDS = 25;
+export const ROUND_SECONDS = 20;
 export function progress(question:number, phase:string) {return people.map((_,i)=>clues.slice(0,Math.max(0,question)+(["reveal","final"].includes(phase)?1:0)).filter(c=>c.owner===i).length)}
