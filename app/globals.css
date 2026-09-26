@@ -239,3 +239,4 @@ header{grid-template-columns:minmax(0,1fr) auto!important;row-gap:14px!important
 .join-reel .how-to-play{margin-top:16px}
 @media(max-width:900px){.how-to-play ol{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.how-to-play ol{grid-template-columns:1fr}.how-to-play li b{font-size:13px}}
+.reel-symbol img.benjamin-reel-symbol{object-fit:cover!important;object-position:50% 25%!important}
