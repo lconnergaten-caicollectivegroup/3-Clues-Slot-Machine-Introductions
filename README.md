@@ -182,3 +182,11 @@ This is a classroom introduction game. Store only what is necessary to run it. D
 ---
 
 **Status:** README / product specification established. Next step: scaffold the application and database schema.
+
+## September 2026 implementation status
+
+The host lobby now displays a shareable participant URL and QR code. Voting shows a 35-second visual countdown, clue reels animate between spins, silhouette cards fill as clues appear, and vote percentages animate after voting locks. A participant's room/player IDs are kept in local storage so a refresh or minimized phone browser can recover the same vote state; the host room ID is kept in session storage. The build uses a pinned lockfile and Next.js 16.3.6.
+
+**Live deployment gate:** The connected Supabase project currently has read access to rooms and public inserts for players/votes, but no insert/update policy for rooms. Consequently the host cannot create or advance a game with the browser's publishable key. The `finalize_game_scores` RPC also needs a verified authorization path. Do not expose unrestricted room writes or privileged scoring to the public just to unblock deployment. Supply an authenticated host endpoint or secure host authorization policy, then verify a complete host/player run before sharing the game URL.
+
+The second and third classmates' names and six clue texts remain placeholders. Replace them in `lib/game.ts` before the course session. The standalone `/` route is a local demonstration and is not synchronized with the live `/host` and `/play` routes.
