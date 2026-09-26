@@ -215,3 +215,12 @@ header{grid-template-columns:minmax(0,1fr) auto!important;row-gap:14px!important
 .slot-assembly{margin-left:auto!important;margin-right:auto!important;max-width:min(800px,calc(100% - 150px))!important}
 @media(max-width:900px){.header-right{justify-content:flex-start!important}}
 @media(max-width:650px){.header-meta .course{font-size:10px;letter-spacing:.14em}.header-meta .date-badge{font-size:10px;height:24px}.slot-assembly{max-width:calc(100% - 96px)!important}.team{min-width:0;flex:1}}
+
+/* Visible 15-second timer */
+.timer{display:flex;align-items:center;gap:12px;max-width:520px;margin:4px auto 14px}
+.timer b{min-width:52px;padding:6px 10px;border-radius:999px;background:#0b0826;border:2px solid #f6ca77;color:#ffe27a;font-size:18px;font-weight:950;text-align:center;box-shadow:0 0 12px #ffcf5755}
+.timer .countdown{flex:1;height:14px!important;margin:0!important;background:#0b0826!important;border:1px solid #f6ca7788}
+.timer .countdown span{display:block;height:100%;background:linear-gradient(90deg,#2fbf5f,#ffd35c)!important;transition:width 1s linear}
+.timer.is-urgent b{color:#fff;background:#c0164f;border-color:#ff9cc9;animation:urgent .5s ease-in-out infinite alternate}
+.timer.is-urgent .countdown span{background:linear-gradient(90deg,#ff3d6e,#ff9d2e)!important}
+@keyframes urgent{to{transform:scale(1.12);box-shadow:0 0 18px #ff4f7b}}
