@@ -20,7 +20,7 @@ export default function HostScreen(){
  if(!room)return <main className="host screen-only"><header><h1>🎰 THREE OF A KIND</h1></header><section className="machine"><div className="reel"><h2>{error||"Create a live room in the host dashboard first."}</h2></div><div className="actions"><a className="spin" href="/host">HOST DASHBOARD</a></div></section></main>;
  const q=room.current_question,phase=room.phase,shown=progress(q,phase),qv=votes.filter(v=>v.question===q),counts=people.map((_,i)=>qv.filter(v=>v.choice===i).length),url=`${location.origin}/play?pin=${encodeURIComponent(PIN)}`;
  const winner=[...players].sort((a,b)=>(b.score||0)-(a.score||0)||(a.total_correct_ms||0)-(b.total_correct_ms||0)||a.display_name.localeCompare(b.display_name)||a.id.localeCompare(b.id))[0];
- return <main className="host screen-only"><header><div><span className="eyebrow">LEAD 691A + LEAD 697-01 • TRIAD INTRODUCTIONS • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{q+1}/9</b></div></header>
+ return <main className="host screen-only"><header><div><span className="eyebrow">LEAD 697-01 • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{q+1}/9</b></div></header>
  <section className="mysteries">{people.map((p,i)=><div className="person" key={p}><PersonSilhouette index={i} shown={shown[i]}/><b>{p}</b><small>{shown[i]}/3 clues</small></div>)}</section>
  <section className="machine"><div className="question">{phase.toUpperCase()}</div>
  {phase==="lobby"&&<HostLobby url={url} players={players.length}/>}

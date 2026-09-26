@@ -12,7 +12,7 @@ export default function HostPreview(){
  const url=`https://three-of-a-kind-soles.vercel.app/play?pin=${encodeURIComponent(PIN)}`;
  const shown=people.map((_,i)=>clues.slice(0,q+(stage==="reveal"||stage==="final"?1:0)).filter(c=>c.owner===i).length);
  function advance(){if(stage==="final")return;const next=stages[stages.indexOf(stage)+1];setStage(next)}
- return <main className="host host-preview"><header><div><span className="eyebrow">LEAD 691A + LEAD 697-01 • TRIAD INTRODUCTIONS • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{q+1}/9</b></div></header>
+ return <main className="host host-preview"><header><div><span className="eyebrow">LEAD 697-01 • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{q+1}/9</b></div></header>
  <div className="preview-banner"><b>HOST SCREEN PREVIEW</b><span>See the screen you’ll share. This preview does not create a room.</span><a href="/host">OPEN LIVE HOST →</a></div>
  <section className="mysteries">{people.map((p,i)=><div className="person" key={p}><PersonSilhouette index={i} shown={shown[i]}/><b>{p}</b><small>{shown[i]}/3 clues</small></div>)}</section>
  <section className="machine"><div className="question">{stage.toUpperCase()}</div>
