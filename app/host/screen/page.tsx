@@ -1,0 +1,33 @@
+"use client";
+import {useEffect,useState} from "react";
+import HostLobby from "../../../lib/HostLobby";
+import LandmarkReels from "../../../lib/LandmarkReels";
+import PersonSilhouette from "../../../lib/PersonSilhouette";
+import {PIN,people,clues,progress,ROUND_SECONDS} from "../../../lib/game";
+import {supabase} from "../../../lib/supabase";
+
+type Room={id:string;phase:string;current_question:number};
+type Player={id:string;display_name:string;score:number;total_correct_ms:number};
+type Vote={question:number;choice:number};
+export default function HostScreen(){
+ const[authed,setAuthed]=useState<boolean|null>(null),[roomId,setRoomId]=useState(""),[room,setRoom]=useState<Room|null>(null),[players,setPlayers]=useState<Player[]>([]),[votes,setVotes]=useState<Vote[]>([]),[clock,setClock]=useState(ROUND_SECONDS),[landing,setLanding]=useState(false),[error,setError]=useState("");
+ useEffect(()=>{const id=new URLSearchParams(location.search).get("room")||sessionStorage.getItem("three-kind-host")||"";setRoomId(id);supabase.auth.getUser().then(({data})=>setAuthed(data.user?.email?.toLowerCase()==="lconnergaten@caicollectivegroup.com"));const {data:listener}=supabase.auth.onAuthStateChange((_event,session)=>setAuthed(session?.user?.email?.toLowerCase()==="lconnergaten@caicollectivegroup.com"));return()=>listener.subscription.unsubscribe()},[]);
+ useEffect(()=>{if(!authed||!roomId)return;let active=true;async function refresh(){const[{data:r,error:e},{data:p},{data:v}]=await Promise.all([supabase.from("rooms").select("*").eq("id",roomId).single(),supabase.from("players").select("*").eq("room_id",roomId),supabase.from("votes").select("question,choice").eq("room_id",roomId)]);if(!active)return;if(e){setError(e.message);return}if(r)setRoom(r as Room);setPlayers((p||[]) as Player[]);setVotes((v||[]) as Vote[])}refresh();const timer=setInterval(refresh,1000);return()=>{active=false;clearInterval(timer)}},[authed,roomId]);
+ useEffect(()=>{if(room?.phase!=="voting")return;setClock(ROUND_SECONDS);const timer=setInterval(()=>setClock(v=>Math.max(0,v-1)),1000);return()=>clearInterval(timer)},[room?.phase,room?.current_question]);
+ useEffect(()=>{if(room?.phase!=="reveal")return;setLanding(true);const timer=setTimeout(()=>setLanding(false),2200);return()=>clearTimeout(timer)},[room?.phase,room?.current_question]);
+ if(authed===null)return <main className="host screen-only"><p className="notice">Opening the screen share view…</p></main>;
+ if(!authed)return <main className="host screen-only"><header><h1>🎰 THREE OF A KIND</h1></header><section className="machine"><div className="reel"><h2>Sign in as host first, then open the screen share view.</h2></div><div className="actions"><a className="spin" href="/host">HOST SIGN-IN</a></div></section></main>;
+ if(!room)return <main className="host screen-only"><header><h1>🎰 THREE OF A KIND</h1></header><section className="machine"><div className="reel"><h2>{error||"Create a live room in the host dashboard first."}</h2></div><div className="actions"><a className="spin" href="/host">HOST DASHBOARD</a></div></section></main>;
+ const q=room.current_question,phase=room.phase,shown=progress(q,phase),qv=votes.filter(v=>v.question===q),counts=people.map((_,i)=>qv.filter(v=>v.choice===i).length),url=`${location.origin}/play?pin=${encodeURIComponent(PIN)}`;
+ const winner=[...players].sort((a,b)=>(b.score||0)-(a.score||0)||(a.total_correct_ms||0)-(b.total_correct_ms||0)||a.display_name.localeCompare(b.display_name)||a.id.localeCompare(b.id))[0];
+ return <main className="host screen-only"><header><div><span className="eyebrow">LEAD 691A + LEAD 697-01 • TRIAD INTRODUCTIONS • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{q+1}/9</b></div></header>
+ <section className="mysteries">{people.map((p,i)=><div className="person" key={p}><PersonSilhouette index={i} shown={shown[i]}/><b>{p}</b><small>{shown[i]}/3 clues</small></div>)}</section>
+ <section className="machine"><div className="question">{phase.toUpperCase()}</div>
+ {phase==="lobby"&&<HostLobby url={url} players={players.length}/>}
+ {phase==="voting"&&<><div className="reel slot-reel"><div><LandmarkReels round={q}/><span className="reel-icon">{clues[q].icon}</span><h2>{clues[q].text}</h2></div></div><p className="prompt">WHO DAT?! · {qv.length} / {players.length} answers · <span aria-live="polite">{clock}s</span></p><div className="countdown"><span style={{width:`${clock*100/ROUND_SECONDS}%`}}/></div></>}
+ {phase==="results"&&<div className="reel"><div className="results"><h2>WHAT THE CLASS PICKED</h2>{people.map((p,i)=><div className="result" key={p}><div><b>{p}</b><b>{Math.round(counts[i]/(qv.length||1)*100)}%</b></div><div className="result-track"><span style={{width:`${counts[i]/(qv.length||1)*100}%`}}/></div></div>)}</div></div>}
+ {phase==="reveal"&&landing&&<div className="reel slot-reel"><div className="slot-content"><LandmarkReels spinning round={q}/><p className="spin-callout">SPINNING TO REVEAL…</p></div></div>}
+ {phase==="reveal"&&!landing&&<div className="reveal"><LandmarkReels revealOwner={clues[q].owner} round={q}/><span>THE CLUE BELONGS TO…</span><h2>{people[clues[q].owner]}!</h2><p>🎤 The story behind the clue</p></div>}
+ {phase==="final"&&<div className="reveal"><span>FINAL JACKPOT</span><h2>🏆 ONE WINNER</h2>{winner&&<p className="podium">🥇 {winner.display_name} — {winner.score||0}/9</p>}<p>Most correct wins. Ties go to the fastest correct answers.</p></div>}
+ </section><footer>Three people • Nine clues • One winner · <a href="https://www.sandiego.edu/facilities/building-gallery.php" target="_blank" rel="noreferrer">USD campus photos</a></footer></main>
+}

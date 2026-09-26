@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 // Photographs and building names are from USD's official building gallery.
-const landmarks=[
+export const landmarks=[
  {src:"/landmarks/photos/immaculata.jpg",label:"THE IMMACULATA"},
  {src:"/landmarks/photos/jenny-craig-pavilion.jpg",label:"JENNY CRAIG PAVILION"},
  {src:"/landmarks/photos/mother-rosalie-hill-hall.jpg",label:"MOTHER ROSALIE HILL HALL · SOLES"},

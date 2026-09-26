@@ -1,6 +1,6 @@
 "use client";
 import {useCallback,useEffect,useState} from "react";
-import {QRCodeSVG} from "qrcode.react";
+import HostLobby from "../../lib/HostLobby";
 import LandmarkReels from "../../lib/LandmarkReels";
 import PersonSilhouette from "../../lib/PersonSilhouette";
 import {supabase} from "../../lib/supabase";
@@ -24,10 +24,11 @@ export default function Host(){
  const q=room?.current_question||0,phase=room?.phase||"lobby",qv=votes.filter(v=>v.question===q),counts=people.map((_,i)=>qv.filter(v=>v.choice===i).length),revealed=progress(q,phase);
  if(!authed)return <main className="host"><header><div><span className="eyebrow">LEAD 691A + LEAD 697-01 • TRIAD INTRODUCTIONS</span><h1>🎰 THREE OF A KIND</h1></div></header><section className="machine"><div className="reel"><div><h2>Host sign-in</h2><p>The host link will be emailed to LaShea’s CAI address.</p></div></div><div className="actions"><button className="spin" onClick={sendHostLink}>EMAIL HOST LINK</button></div><p role="status" className="notice">{authMessage}</p></section></main>;
  return <main className="host"><header><div><span className="eyebrow">LEAD 691A + LEAD 697-01 • TRIAD INTRODUCTIONS • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{room?`${q+1}/9`:"READY"}</b></div></header>
+ <div className="host-tools"><b>PRIVATE HOST DASHBOARD</b><span>Keep this tab off the screen share.</span>{room&&<a href={`/host/screen?room=${encodeURIComponent(room.id)}`} target="_blank" rel="noopener noreferrer">OPEN SCREEN TO SHARE ↗</a>}</div>
  {room&&<section className="mysteries">{people.map((p,i)=><div className="person" key={p}><PersonSilhouette index={i} shown={revealed[i]}/><b>{p}</b><small>{revealed[i]}/3 clues</small></div>)}</section>}
  <section className="machine"><div className="question">{room?phase.toUpperCase():"GET READY"}</div>
  {!room&&<><div className="reel"><h2>Open the live room</h2></div><div className="actions"><button className="spin" disabled={busy} onClick={create}>CREATE LIVE ROOM</button></div></>}
- {room&&phase==="lobby"&&!spinning&&<><div className="reel join-reel"><div><h2>SCAN TO JOIN</h2>{url&&<div className="qr"><QRCodeSVG value={url} size={175} includeMargin/></div>}<p><a href={url}>{url}</a></p><div className="pinCard">Course PIN <b>{PIN}</b></div><p>{players.length} players connected · Use real names so we can announce the winner.</p></div></div><div className="actions"><button className="spin" disabled={busy} onClick={()=>setPhase("voting")}>SHOW FIRST CLUE</button></div></>}
+ {room&&phase==="lobby"&&!spinning&&<><HostLobby url={url} players={players.length}/><div className="actions"><button className="spin" disabled={busy} onClick={()=>setPhase("voting")}>SHOW FIRST CLUE</button></div></>}
  {room&&spinning&&<div className="reel slot-reel"><div className="slot-content"><LandmarkReels spinning round={q}/><p className="spin-callout" aria-live="polite">SPINNING TO REVEAL…</p></div></div>}
  {room&&phase==="voting"&&!spinning&&<><div className={`reel slot-reel ${spinning?"is-spinning":""}`}><div><LandmarkReels round={q}/><span className="reel-icon">{clues[q].icon}</span><h2>{clues[q].text}</h2></div></div><p className="prompt">WHO DAT?! · {qv.length} / {players.length} answers · <span aria-live="polite">{clock}s</span></p><div className="countdown"><span style={{width:`${clock*100/ROUND_SECONDS}%`}}/></div><div className="actions"><button className="spin" disabled={busy} onClick={()=>setPhase("results")}>LOCK VOTING</button></div></>}
  {room&&phase==="results"&&!spinning&&<><div className="reel"><div className="results"><h2>ROOM TALLY</h2>{people.map((p,i)=><div className="result" key={p}><div><b>{p}</b><b>{Math.round(counts[i]/(qv.length||1)*100)}%</b></div><div className="result-track"><span style={{width:`${counts[i]/(qv.length||1)*100}%`}}/></div></div>)}</div></div><div className="actions"><button className="spin" disabled={busy} onClick={spinReveal}>SPIN TO REVEAL ↻</button></div></>}
