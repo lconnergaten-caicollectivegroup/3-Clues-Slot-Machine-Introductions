@@ -240,3 +240,13 @@ header{grid-template-columns:minmax(0,1fr) auto!important;row-gap:14px!important
 @media(max-width:900px){.how-to-play ol{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.how-to-play ol{grid-template-columns:1fr}.how-to-play li b{font-size:13px}}
 .reel-symbol img.benjamin-reel-symbol{object-fit:cover!important;object-position:50% 25%!important}
+
+/* Next-clue button inside the slot machine */
+.machine-action{display:flex;justify-content:center;margin-top:12px}
+.next-in-machine{font-size:20px!important;padding:14px 34px!important;border-radius:999px!important;background:linear-gradient(180deg,#fff1a8,#ffc83d 45%,#e08a14)!important;color:#3a1a05!important;border:3px solid #fff6cf!important;box-shadow:0 5px 0 #8a4f0c,0 0 0 4px #c02d8e,0 0 26px #ffcf57cc!important;font-weight:950!important;letter-spacing:.08em;animation:nextPulse 1.3s ease-in-out infinite}
+.next-in-machine:hover{filter:brightness(1.08)}
+.next-in-machine:disabled{animation:none;opacity:.6}
+@keyframes nextPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07);box-shadow:0 5px 0 #8a4f0c,0 0 0 4px #ff4fb0,0 0 40px #ffe27a}}
+.final-in-machine{padding:10px 24px;border-radius:999px;background:#0b0826;border:2px solid #f6ca77;color:#ffe27a;font-weight:950;letter-spacing:.08em}
+@media(max-width:650px){.next-in-machine{font-size:16px!important;padding:11px 24px!important}}
+@media(prefers-reduced-motion:reduce){.next-in-machine{animation:none}}

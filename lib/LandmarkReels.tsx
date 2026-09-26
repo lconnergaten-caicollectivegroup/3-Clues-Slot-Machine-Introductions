@@ -15,7 +15,7 @@ export const landmarks=[
  {src:"/landmarks/photos/kroc-institute.jpg",label:"KROC INSTITUTE"}
 ];
 
-export default function LandmarkReels({spinning=false,revealOwner,round=0}:{spinning?:boolean;revealOwner?:number;round?:number}){
+export default function LandmarkReels({spinning=false,revealOwner,round=0,action}:{spinning?:boolean;revealOwner?:number;round?:number;action?:React.ReactNode}){
  return <div className={`slot-assembly ${spinning?"is-spinning":""} ${revealOwner!==undefined?"has-winner":""}`} aria-label={spinning?"USD campus reels spinning":"USD campus reels stopped"}>
   <div className="slot-topline"><span>✦</span> SOLES JACKPOT <span>✦</span></div>
   <div className="machine-lights" aria-hidden="true">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
@@ -35,5 +35,6 @@ export default function LandmarkReels({spinning=false,revealOwner,round=0}:{spin
    </div>})}</div>
   <SlotLever pulled={spinning}/>
   <div className="slot-payline" aria-hidden="true"><i/><span>◆ JACKPOT ◆</span><i/></div>
+  {action&&<div className="machine-action">{action}</div>}
  </div>
 }
