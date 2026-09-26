@@ -6,7 +6,7 @@ import PersonSilhouette from "../../lib/PersonSilhouette";
 import PotOfGold from "../../lib/PotOfGold";
 import HowToPlay from "../../lib/HowToPlay";
 import {supabase} from "../../lib/supabase";
-import {PIN,people,clues,progress,ROUND_SECONDS} from "../../lib/game";
+import {PIN,people,clues,progress,ROUND_SECONDS,readerFor} from "../../lib/game";
 type Room={id:string;pin:string;phase:string;current_question:number};
 type Player={id:string;display_name:string;score?:number};
 export default function Play(){
@@ -24,7 +24,7 @@ export default function Play(){
  {phase==="lobby"&&<><div className="reel"><h2>✓ You’re in! Watch the shared screen.</h2></div><HowToPlay/></>}
  {phase==="voting"&&<><div className="reel"><div><LandmarkReels round={q}/><span className="reel-icon">{clues[q].icon}</span><h2>{clues[q].text}</h2></div></div><p className="prompt">{sent?"🔒 ANSWER LOCKED":clock<=0?"⏰ TIME’S UP!":"WHO DAT?!"}</p>{!sent&&<div className={`timer ${clock<=5?"is-urgent":""}`}><b aria-live="polite">{clock}s</b><div className="countdown"><span style={{width:`${clock*100/ROUND_SECONDS}%`}}/></div></div>}<div className="choices">{people.map((p,i)=><button key={p} disabled={sent||clock<=0} className={choice===i?"selected":""} onClick={()=>setChoice(i)}>{p}</button>)}</div>{!sent&&<div className="actions"><button className="spin" disabled={choice===null||busy||clock<=0} onClick={submit}>LOCK IN</button></div>}</>}
  {phase==="results"&&<div className="reel"><div><LandmarkReels spinning round={q}/><h2>Votes are in. Watch the host pull the lever! 🎰</h2></div></div>}
- {phase==="reveal"&&<div className="reveal"><LandmarkReels revealOwner={clues[q].owner} round={q}/><span>THE CLUE BELONGS TO…</span><h2>{people[clues[q].owner]}!</h2><p>{choice===clues[q].owner?"✓ You got it!":"Next clue coming up…"}</p><div className="story-card"><b>THE BACKSTORY</b><p>{clues[q].story}</p></div></div>}
+ {phase==="reveal"&&<div className="reveal"><LandmarkReels revealOwner={clues[q].owner} round={q}/><span>THE CLUE BELONGS TO…</span><h2>{people[clues[q].owner]}!</h2><p>{choice===clues[q].owner?"✓ You got it!":"Next clue coming up…"}</p><div className="story-card"><b>THE BACKSTORY</b><p className="teller">🎤 Told by {readerFor(clues[q].owner)}</p><p>{clues[q].story}</p></div></div>}
  {phase==="final"&&<div className="reveal"><VictoryFanfare/><div className="confetti" aria-hidden="true">🎉 ✨ 🎊 ✨ 🎉</div><span>JACKPOT CHAMPION</span><h2 className="winner-name">🏆 {winner?.display_name||"Winner loading…"}</h2><p>{winner?`${winner.score||0}/6 correct · ${winner.id===player.id?"That’s you! Your $25 virtual Visa card will be sent today to your USD student email.":"Thanks for playing! #SOLESCohort3 #BoldBalancedBecoming"}`:"Check the shared screen for the winner."}</p></div>}
  {msg&&<p className="notice" role="alert">{msg}</p>}</section></main>
 }

@@ -3,7 +3,7 @@ import {useState} from "react";
 import LandmarkReels from "../../../lib/LandmarkReels";
 import HostLobby from "../../../lib/HostLobby";
 import PersonSilhouette from "../../../lib/PersonSilhouette";
-import {PIN,people,clues,ROUND_SECONDS,readerFor} from "../../../lib/game";
+import {PIN,people,clues,ROUND_SECONDS} from "../../../lib/game";
 
 const stages=["lobby","voting","results","spinning","reveal","final"] as const;
 type Stage=typeof stages[number];
@@ -17,7 +17,7 @@ export default function HostPreview(){
  <section className="mysteries">{people.map((p,i)=><div className="person" key={p}><PersonSilhouette index={i} shown={shown[i]}/><b>{p}</b><small>{shown[i]}/2 clues</small></div>)}</section>
  <section className="machine"><div className="question">{stage.toUpperCase()}</div>
  {stage==="lobby"&&<HostLobby url={url} players={0}/>}
- {stage==="voting"&&<><div className="reel slot-reel"><div><LandmarkReels round={q}/><span className="reel-icon">{clues[q].icon}</span><h2>{clues[q].text}</h2></div></div><p className="reader-cue">🎤 HOST ONLY · <b>{readerFor(clues[q].owner)}</b> reads this clue aloud</p><p className="prompt">WHO DAT?! · 0 / 0 answers · {ROUND_SECONDS}s</p><div className="countdown"><span style={{width:"100%"}}/></div></>}
+ {stage==="voting"&&<><div className="reel slot-reel"><div><LandmarkReels round={q}/><span className="reel-icon">{clues[q].icon}</span><h2>{clues[q].text}</h2></div></div><p className="prompt">WHO DAT?! · 0 / 0 answers · {ROUND_SECONDS}s</p><div className="countdown"><span style={{width:"100%"}}/></div></>}
  {stage==="results"&&<div className="reel"><div className="results"><h2>ROOM TALLY</h2>{people.map(p=><div className="result" key={p}><div><b>{p}</b><b>0%</b></div><div className="result-track"><span style={{width:0}}/></div></div>)}</div></div>}
  {stage==="spinning"&&<div className="reel slot-reel"><div className="slot-content"><LandmarkReels spinning round={q}/><p className="spin-callout">LEVER PULLED — REVEALING…</p></div></div>}
  {stage==="reveal"&&<div className="reveal"><LandmarkReels revealOwner={clues[q].owner} round={q}/><span>THE CLUE BELONGS TO…</span><h2>{people[clues[q].owner]}!</h2><p>🎤 Pause for the story behind the clue.</p></div>}

@@ -6,14 +6,14 @@ export default function HowToPlay({mode="live",compact=false}:{mode?:"solo"|"liv
   ["🔍","Read the clue","Each clue is a true fact about one of us three."],
   ["🤔",`Guess who — ${ROUND_SECONDS} seconds`,"Pick LaShea, Benjamin, or Joshua before the timer runs out."],
   ["🎰","Lock in & pull the lever","One tap locks your answer, drops the lever, and spins the reels to reveal the owner."],
-  ["🎤","Hear the backstory from our team","LaShea, Benjamin, or Joshua shares the real story behind the clue."],
+  ["🎤","Hear the backstory from our team","A teammate shares the real story behind each clue."],
   ["🏆","Top guesser wins a prize","Every right answer fills your pot of gold. The top guesser wins a prize!"]
  ]:[
   ["📱","Join on your phone","Scan the QR code, enter the course PIN, and use your real first and last name."],
   ["🔍","Read the clue","Each clue is a true fact about LaShea, Benjamin, or Joshua."],
   ["⏱️",`Guess in ${ROUND_SECONDS} seconds`,"Tap who you think it is, then LOCK IN before time runs out."],
   ["🎰","Watch the lever pull","The host pulls the lever, the reels spin, and the owner is revealed."],
-  ["🎤","Hear the backstory from our team","LaShea, Benjamin, or Joshua shares the real story behind the clue."],
+  ["🎤","Hear the backstory from our team","A teammate shares the real story behind each clue."],
   ["🏆","Top guesser wins a prize","The top guesser wins a prize! Ties go to the fastest correct answers."]
  ];
  return <details className={`how-to-play ${compact?"is-compact":""}`} open={!compact}>
