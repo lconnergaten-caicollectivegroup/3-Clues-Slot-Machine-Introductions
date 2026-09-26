@@ -84,3 +84,26 @@ footer{opacity:.9;color:#edcdea}footer a{color:#ffe09d}
 @keyframes confettiBounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
 .prize{display:inline-block;margin-top:6px;padding:8px 14px;border-radius:999px;background:#ffe18c;color:#2b1d4a;font-weight:900;font-size:16px;box-shadow:0 3px 0 #b86a31}
 .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:auto;text-align:right}.team{margin:0;font-size:12px;font-weight:800;letter-spacing:.03em;max-width:260px;line-height:1.35}.eyebrow a{color:inherit;text-decoration:underline}@media(max-width:650px){.header-right{align-items:flex-start;text-align:left;margin-left:0}.team{max-width:none}}
+
+/* ===== Casino polish ===== */
+body::before{content:"♠ ♥ ♦ ♣ 🎲 ♠ ♥ ♦ ♣ 🪙 ♠ ♥ ♦ ♣ 🍀";position:fixed;inset:0;z-index:-1;pointer-events:none;font-size:46px;line-height:3.2;letter-spacing:1.6em;word-spacing:1.4em;color:#ffffff0d;overflow:hidden;white-space:normal;transform:rotate(-12deg) scale(1.4);opacity:.9}
+body{background:radial-gradient(ellipse at 50% 0%,#ff4fb033 0,#0000 45%),radial-gradient(circle at 50% -15%,#7333a2 0%,#241448 35%,#0b1230 75%,#05081d 100%);background-attachment:fixed}
+header{position:relative;align-items:stretch!important;padding:16px 18px 18px!important;margin-bottom:10px;border-radius:22px;background:linear-gradient(160deg,#2c1260e6,#120a33e6);border:3px solid #f6ca77;box-shadow:0 6px 0 #a8652a,0 0 30px #ff4fb055,inset 0 0 22px #7b3fe444}
+header::before{content:"";position:absolute;inset:-9px;border-radius:28px;pointer-events:none;background:radial-gradient(circle,#ffe79a 0 3px,#0000 4px) 0 0/22px 22px;-webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);padding:6px;animation:bulbs 1s steps(2) infinite;filter:drop-shadow(0 0 4px #ffcf57)}
+@keyframes bulbs{50%{opacity:.35}}
+.eyebrow{display:flex!important;flex-wrap:wrap;align-items:center;gap:6px 10px;letter-spacing:.08em!important;font-size:12px!important;margin-bottom:6px!important;color:#ffe18c!important;text-transform:uppercase}
+.eyebrow .course{flex-basis:100%;font-size:11px;letter-spacing:.16em;color:#ffcf6e;opacity:.9}
+.eyebrow a.assignment{display:inline-block;padding:5px 12px;border-radius:999px;background:linear-gradient(135deg,#ff4fb0,#b53bff);color:#fff!important;text-decoration:none!important;font-weight:900;letter-spacing:.06em;box-shadow:0 3px 0 #6e1f86,0 0 14px #ff4fb099}
+.eyebrow a.assignment:hover{filter:brightness(1.15)}
+header h1{font-size:clamp(34px,6vw,64px);margin:6px 0 2px;color:#ffe7a3!important;text-shadow:0 3px 0 #b8408a,0 0 18px #ffd35c,0 0 42px #ff4fb0,0 0 70px #7b3fe4!important;animation:neon 2.6s ease-in-out infinite}
+@keyframes neon{0%,100%{filter:brightness(1)}48%{filter:brightness(1.25)}50%{filter:brightness(.85)}52%{filter:brightness(1.25)}}
+header p{color:#fff3c6;font-weight:800;font-size:17px;margin:2px 0 0}
+.header-right{justify-content:space-between}
+.team{display:flex!important;flex-direction:column;gap:2px;padding:9px 14px;border-radius:14px;background:#0b0826cc;border:2px solid #f6ca77;box-shadow:0 0 14px #ffcf5744;font-size:13px!important;max-width:none!important;text-align:right}
+.team b{font-size:10px;letter-spacing:.18em;color:#ff8fd0;margin-bottom:2px}
+.team span{color:#fff3c6;font-weight:800;white-space:nowrap}
+.score{border-radius:50%!important;width:96px;height:96px;min-width:0!important;padding:0!important;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,#2a1558 0 55%,#0000 56%),repeating-conic-gradient(#f6ca77 0 15deg,#b8408a 15deg 30deg)!important;border:3px solid #fff3c6!important;box-shadow:0 6px 0 #a8652a,0 0 24px #ff4fb088!important}
+.person{transition:transform .2s,box-shadow .2s}.person:hover{transform:translateY(-3px);box-shadow:0 0 0 3px #f6ca77,0 0 26px #ff4fb099}
+footer{color:#ffe18c;font-weight:800;letter-spacing:.06em}footer a{color:#ff8fd0}
+@media(max-width:650px){header{flex-direction:column}.header-right{flex-direction:row!important;align-items:center!important;justify-content:space-between;width:100%}.team{text-align:left}.score{width:76px;height:76px}.eyebrow .course{font-size:10px}}
+@media(prefers-reduced-motion:reduce){header::before,header h1{animation:none}}
