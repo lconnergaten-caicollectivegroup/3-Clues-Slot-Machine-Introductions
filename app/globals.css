@@ -136,3 +136,6 @@ footer{color:#ffe18c;font-weight:800;letter-spacing:.06em}footer a{color:#ff8fd0
 @keyframes coinFly{0%{opacity:1;transform:translate(0,0) rotateY(0)}50%{opacity:1;transform:translate(22px,-26px) rotateY(360deg)}100%{opacity:0;transform:translate(44px,22px) rotateY(720deg)}}
 @media(max-width:650px){.pot-of-gold{height:78px}.torero{width:36px;height:58px}.pot,.pot svg{width:50px}.pot svg{height:44px}}
 @media(prefers-reduced-motion:reduce){.lever.is-pulled .lever-arm,.torero .throw-arm,.coin-arc i,.pot.is-catching{animation:none}}
+.coin-arc{left:10px!important;top:-18px!important;width:44px!important}
+@keyframes coinFly{0%{opacity:1;transform:translate(var(--x,0),-10px) rotateY(0)}70%{opacity:1}100%{opacity:0;transform:translate(var(--x,0),46px) rotateY(540deg)}}
+.coin-arc i:nth-child(1){--x:4px}.coin-arc i:nth-child(2){--x:16px}.coin-arc i:nth-child(3){--x:28px}
