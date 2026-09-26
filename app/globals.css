@@ -58,3 +58,10 @@ footer{opacity:.9;color:#edcdea}footer a{color:#ffe09d}
 .player .slot-assembly{--reel-height:115px;padding:8px 7px 12px;border-width:5px}.player .landmark-tile{border-width:3px}.player .landmark-tile span{font-size:8px;min-height:34px;padding:3px}.player .machine-lights{font-size:8px;margin-bottom:6px}.player .slot-topline{font-size:12px}.player .reveal .reel-window,.player .reveal .reel-symbol{height:var(--reel-height)}
 @media(max-width:650px){main{padding:13px}.machine{padding:20px 11px 25px;border-width:5px}.slot-assembly{--reel-height:98px;padding:8px 5px 12px;border-width:5px}.reel-window,.reel-symbol,.reveal .reel-window,.reveal .reel-symbol{height:var(--reel-height)}.landmark-tile{border-width:2px}.landmark-tile span{font-size:7px;min-height:35px;padding:2px;line-height:1.05}.machine-lights{font-size:9px;letter-spacing:5px}.slot-topline{font-size:13px}.player .slot-assembly{--reel-height:87px}.player .landmark-tile span{font-size:7px;min-height:34px}.reel{padding:10px}.person{padding:8px 3px}}
 @media(prefers-reduced-motion:reduce){.machine-lights,.slot-assembly.has-winner{animation:none!important}.slot-assembly.is-spinning .reel-track{animation:campusReel 2.2s linear 1!important}}
+/* Personal silhouettes fill one third after each answered clue. */
+.portrait-silhouette{border-radius:45% 45% 8px 8px;background:#a6e9ef;box-shadow:0 0 0 2px #e4c36a,0 0 15px #60e8f6;isolation:isolate}
+.portrait-silhouette img{object-fit:cover;object-position:50% 20%}
+.portrait-0 img{object-fit:cover;object-position:center 12%}
+.portrait-1 img{object-position:42% 30%}
+.portrait-progress{position:absolute;bottom:0;left:0;right:0;z-index:1;pointer-events:none;background:linear-gradient(0deg,#ff3aa581,#ffdd5999);mix-blend-mode:screen;transition:height .7s}
+.reel-symbol img.benjamin-reel-symbol{object-fit:cover;object-position:42% 30%}

@@ -2,6 +2,7 @@
 import {useCallback,useEffect,useState} from "react";
 import {QRCodeSVG} from "qrcode.react";
 import LandmarkReels from "../../lib/LandmarkReels";
+import PersonSilhouette from "../../lib/PersonSilhouette";
 import {supabase} from "../../lib/supabase";
 import {PIN,people,clues,progress,ROUND_SECONDS} from "../../lib/game";
 
@@ -23,7 +24,7 @@ export default function Host(){
  const q=room?.current_question||0,phase=room?.phase||"lobby",qv=votes.filter(v=>v.question===q),counts=people.map((_,i)=>qv.filter(v=>v.choice===i).length),revealed=progress(q,phase);
  if(!authed)return <main className="host"><header><div><span className="eyebrow">LEAD 691A • TRIAD INTRODUCTIONS</span><h1>🎰 THREE OF A KIND</h1></div></header><section className="machine"><div className="reel"><div><h2>Host sign-in</h2><p>The host link will be emailed to LaShea’s CAI address.</p></div></div><div className="actions"><button className="spin" onClick={sendHostLink}>EMAIL HOST LINK</button></div><p role="status" className="notice">{authMessage}</p></section></main>;
  return <main className="host"><header><div><span className="eyebrow">LEAD 691A • TRIAD INTRODUCTIONS • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{room?`${q+1}/9`:"READY"}</b></div></header>
- {room&&<section className="mysteries">{people.map((p,i)=><div className="person" key={p}><div className="silhouette" aria-label={`${revealed[i]} of 3 clues shown`}><div className="silhouette-fill" style={{height:`${revealed[i]*100/3}%`}}>◆</div><div className="silhouette-outline">◆</div></div><b>{p}</b><small>{revealed[i]}/3 clues</small></div>)}</section>}
+ {room&&<section className="mysteries">{people.map((p,i)=><div className="person" key={p}><PersonSilhouette index={i} shown={revealed[i]}/><b>{p}</b><small>{revealed[i]}/3 clues</small></div>)}</section>}
  <section className="machine"><div className="question">{room?phase.toUpperCase():"GET READY"}</div>
  {!room&&<><div className="reel"><h2>Open the live room</h2></div><div className="actions"><button className="spin" disabled={busy} onClick={create}>CREATE LIVE ROOM</button></div></>}
  {room&&phase==="lobby"&&!spinning&&<><div className="reel join-reel"><div><h2>SCAN TO JOIN</h2>{url&&<div className="qr"><QRCodeSVG value={url} size={175} includeMargin/></div>}<p><a href={url}>{url}</a></p><div className="pinCard">Course PIN <b>{PIN}</b></div><p>{players.length} players connected · Use real names so we can announce the winner.</p></div></div><div className="actions"><button className="spin" disabled={busy} onClick={()=>setPhase("voting")}>SHOW FIRST CLUE</button></div></>}

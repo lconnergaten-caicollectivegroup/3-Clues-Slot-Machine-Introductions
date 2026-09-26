@@ -189,7 +189,7 @@ The host lobby now displays a shareable participant URL and QR code. Voting show
 
 **Host access:** LaShea signs in from `/host` using a one-time link sent to her CAI email. The live Supabase project has the host RLS policies and scoring function grant recorded in `supabase/migrations/`. Players join without an account. Add the final Vercel `/host` URL to Supabase Auth's redirect allow list, then verify the email-link callback and a complete game on two devices before distributing the QR code.
 
-The second and third classmates' names and six clue texts remain placeholders. Replace them in `lib/game.ts` before the course session. The standalone `/` route is a local demonstration and is not synchronized with the live `/host` and `/play` routes.
+Benjamin and Joshua are named; their six clue texts are still placeholders. Replace them in `lib/game.ts` before the course session. The standalone `/` route is a local demonstration and is not synchronized with the live `/host` and `/play` routes.
 
 ## SOLES visual direction
 
