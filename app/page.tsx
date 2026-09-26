@@ -17,9 +17,9 @@ const c=clues[q];const seen=clues.slice(0,q+(revealed?1:0));const progress=peopl
 function reveal(){if(vote===null)return;if(!locked){setLocked(true);return}if(vote===c.owner)setScore(s=>s+1);setRevealed(true)}
 function next(){if(q<8){setQ(x=>x+1);setVote(null);setLocked(false);setRevealed(false)}}
 return <main>
-<header><div><span className="eyebrow">LIVE ZOOM GAME</span><h1>🎰 3 CLUES</h1><p>Who’s behind the silhouette?</p></div><div className="score">SCORE <b>{score}/9</b></div></header>
+<header><div><span className="eyebrow">LIVE ZOOM GAME</span><h1>🎰 THREE OF A KIND</h1><p>9 clues. 3 people. How well can you read the room?</p></div><div className="score">SCORE <b>{score}/9</b></div></header>
 <section className="mysteries">{people.map((p,i)=><div className={"person "+(progress[i]===3?"complete":"")} key={p}><div className="silhouette">👤<span style={{height:(progress[i]/3*100)+"%"}}/></div><b>{p}</b><small>{progress[i]}/3 clues discovered</small></div>)}</section>
 <section className="machine"><div className="question">QUESTION {q+1} OF 9</div><div className="reel"><div className="icon">{c.icon}</div><h2>{c.text}</h2></div>
-{!revealed?<><p className="prompt">{locked?"🔒 ANSWER LOCKED":"WHOSE CLUE IS THIS?"}</p><div className="choices">{people.map((p,i)=><button disabled={locked} className={vote===i?"selected":""} onClick={()=>setVote(i)} key={p}>{p}</button>)}</div><div className="actions"><button className="spin" onClick={reveal}>{locked?"REVEAL ANSWER ✨":"LOCK IN"}</button></div></>
+{!revealed?<><p className="prompt">{locked?"🔒 ANSWER LOCKED":"WHO DAT?!"}</p><div className="choices">{people.map((p,i)=><button disabled={locked} className={vote===i?"selected":""} onClick={()=>setVote(i)} key={p}>{p}</button>)}</div><div className="actions"><button className="spin" onClick={reveal}>{locked?"REVEAL ANSWER ✨":"LOCK IN"}</button></div></>
 :<div className="reveal"><span>THE CLUE BELONGS TO…</span><h2>{people[c.owner]}!</h2><p>{vote===c.owner?"✓ Correct! +1 point":"Keep detecting!"}</p>{q<8?<button className="spin" onClick={next}>NEXT SPIN 🎰</button>:<div className="final">FINAL SCORE: <b>{score}/9</b></div>}</div>}
 </section><footer>Three people • Nine clues • Nine minutes</footer></main>}
