@@ -30,7 +30,7 @@ export default function LandmarkReels({spinning=false,revealOwner,round=0}:{spin
       !spinning&&i===1&&revealOwner!==undefined?<div className="mystery-symbol" aria-label="Revealed player">★</div>:
       <Image src={tile.src} alt={spinning?"":tile.label} fill sizes="(max-width: 650px) 29vw, 260px"/>}
     </div>)}</div></div>
-    <span>{spinning?"✦ ✦ ✦":i===1&&revealOwner!==undefined?revealOwner===0?"LASHEA":revealOwner===1?"BENJAMIN":"JOSHUA":stop.label}</span>
+    <span>{spinning?"✦ ✦ ✦":i===1&&revealOwner!==undefined?revealOwner===0?"LASHEA C.G.":revealOwner===1?"BENJAMIN F.":"JOSHUA L.":stop.label}</span>
    </div>})}</div>
   <div className="slot-payline" aria-hidden="true"><i/><span>◆ JACKPOT ◆</span><i/></div>
  </div>

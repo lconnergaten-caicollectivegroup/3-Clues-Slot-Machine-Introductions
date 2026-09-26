@@ -1,5 +1,5 @@
 export const PIN = "SOLES#3";
-export const people = ["LaShea", "Benjamin", "Joshua"];
+export const people = ["LaShea C.G.", "Benjamin F.", "Joshua L."];
 export const clues = [
 {owner:0,text:"I once won a pig-calling contest at the State Fair.",icon:"🐷",story:"Backstory coming soon — LaShea will share how the pig-calling contest happened."},
 {owner:2,text:"Mystery clue from Joshua.",icon:"✨",story:"Backstory coming soon from Joshua."},

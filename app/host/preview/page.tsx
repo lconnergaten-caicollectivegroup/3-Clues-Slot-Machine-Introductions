@@ -12,7 +12,7 @@ export default function HostPreview(){
  const url=`https://three-of-a-kind-soles.vercel.app/play?pin=${encodeURIComponent(PIN)}`;
  const shown=people.map((_,i)=>clues.slice(0,q+(stage==="reveal"||stage==="final"?1:0)).filter(c=>c.owner===i).length);
  function advance(){if(stage==="final")return;const next=stages[stages.indexOf(stage)+1];setStage(next)}
- return <main className="host host-preview"><header><div><span className="eyebrow">LEAD 697-01 • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>6 clues. 3 people. How well can you read the room?</p></div><div className="score">QUESTION <b>{q+1}/6</b></div></header>
+ return <main className="host host-preview"><header><div><span className="eyebrow">EdD Org Leadership Collaborative Learning (LEAD-697-01) Assignment · <a href="https://sandiego.instructure.com/courses/32844/assignments/453024" target="_blank" rel="noreferrer">Triad Get-to-Know-You Introductions</a> • PIN {PIN}</span><h1>🎰 THREE OF A KIND</h1><p>6 clues. 3 people. How well can you read the room?</p></div><div className="header-right"><p className="team">Team Members: LaShea Conner-Gaten, Benjamin Frandsen, Joshua Lewis</p><div className="score">QUESTION <b>{q+1}/6</b></div></div></header>
  <div className="preview-banner"><b>HOST SCREEN PREVIEW</b><span>See the screen you’ll share. This preview does not create a room.</span><a href="/host">OPEN LIVE HOST →</a></div>
  <section className="mysteries">{people.map((p,i)=><div className="person" key={p}><PersonSilhouette index={i} shown={shown[i]}/><b>{p}</b><small>{shown[i]}/2 clues</small></div>)}</section>
  <section className="machine"><div className="question">{stage.toUpperCase()}</div>

@@ -83,3 +83,4 @@ footer{opacity:.9;color:#edcdea}footer a{color:#ffe09d}
 @keyframes winnerPop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.12);opacity:1}100%{transform:scale(1)}}
 @keyframes confettiBounce{from{transform:translateY(0)}to{transform:translateY(-8px)}}
 .prize{display:inline-block;margin-top:6px;padding:8px 14px;border-radius:999px;background:#ffe18c;color:#2b1d4a;font-weight:900;font-size:16px;box-shadow:0 3px 0 #b86a31}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-left:auto;text-align:right}.team{margin:0;font-size:12px;font-weight:800;letter-spacing:.03em;max-width:260px;line-height:1.35}.eyebrow a{color:inherit;text-decoration:underline}@media(max-width:650px){.header-right{align-items:flex-start;text-align:left;margin-left:0}.team{max-width:none}}
