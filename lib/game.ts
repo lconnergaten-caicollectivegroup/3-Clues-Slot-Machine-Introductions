@@ -12,4 +12,4 @@ export const clues = [
   {owner:1,text:"Third mystery clue from Teammate 2.",icon:"🎯"}
 ];
 export const ROUND_SECONDS = 35;
-export function progress(question:number, phase:string) {return people.map((_,i)=>clues.slice(0,Math.max(0,question)+(phase==="lobby"?0:1)).filter(c=>c.owner===i).length)}
+export function progress(question:number, phase:string) {return people.map((_,i)=>clues.slice(0,Math.max(0,question)+(["reveal","final"].includes(phase)?1:0)).filter(c=>c.owner===i).length)}
