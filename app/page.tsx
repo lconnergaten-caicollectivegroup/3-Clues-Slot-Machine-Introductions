@@ -16,7 +16,7 @@ const clues=[
 export default function Home(){
 const[q,setQ]=useState(0);const[vote,setVote]=useState<number|null>(null);const[locked,setLocked]=useState(false);const[revealed,setRevealed]=useState(false);const[score,setScore]=useState(0);const[spinning,setSpinning]=useState(false);const spinTimer=useRef<ReturnType<typeof setTimeout>|null>(null);const[clock,setClock]=useState(ROUND_SECONDS);const[timeUp,setTimeUp]=useState(false);
 const c=clues[q];const seen=clues.slice(0,q+(revealed?1:0));const progress=people.map((_,i)=>seen.filter(x=>x.owner===i).length);
-useEffect(()=>{if(locked||revealed||spinning)return;if(clock<=0){setTimeUp(true);setLocked(true);return}const t=setTimeout(()=>setClock(x=>x-1),1000);return()=>clearTimeout(t)},[clock,locked,revealed,spinning]);
+useEffect(()=>{if(locked||revealed||spinning)return;const deadline=Date.now()+clock*1000;const t=setInterval(()=>{const left=Math.max(0,Math.ceil((deadline-Date.now())/1000));setClock(left);if(left<=0){clearInterval(t);setTimeUp(true);setLocked(true)}},200);return()=>clearInterval(t)},[q,locked,revealed,spinning]);
 function spin(){if(spinning||!locked)return;setSpinning(true);if(spinTimer.current)clearTimeout(spinTimer.current);spinTimer.current=setTimeout(()=>{setSpinning(false);if(vote===c.owner)setScore(v=>v+1);setRevealed(true)},2200)}
 function reveal(){if(vote===null)return;if(!locked){setLocked(true);return}spin()}
 function next(){if(q<5){setQ(x=>x+1);setVote(null);setLocked(false);setRevealed(false);setClock(ROUND_SECONDS);setTimeUp(false);}}
