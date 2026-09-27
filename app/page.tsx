@@ -11,11 +11,11 @@ import {VictoryFanfare} from "../lib/SoundFx";
 const people=["LaShea C.G.","Benjamin F.","Joshua L."];
 const clues=[
 {owner:0,text:"I once won a pig-calling contest at the State Fair.",icon:"🐷",story:"Joshua will share how LaShea won a pig-calling contest at the State Fair."},
-{owner:2,text:"Mystery clue from Joshua.",icon:"✨",story:"Benjamin will share the story behind Joshua’s clue."},
+{owner:2,text:"I used to avidly collect Yu-Gi-Oh! and Pokémon cards.",icon:"🃏",story:"Benjamin will share the story behind Joshua’s Yu-Gi-Oh! and Pokémon card collection."},
 {owner:1,text:"My first-ever LinkedIn post had over 1 million views.",icon:"📈",story:"LaShea will share the story behind Benjamin’s first-ever LinkedIn post hitting over 1 million views."},
 {owner:0,text:"I helped deliver a baby in a car.",icon:"👶🏾",story:"Joshua will share how LaShea helped deliver a baby in a car."},
 {owner:1,text:"I’ve earned 9 associate degrees.",icon:"🎓",story:"LaShea will share how Benjamin earned 9 associate degrees."},
-{owner:2,text:"Second mystery clue from Joshua.",icon:"💫",story:"Benjamin will share the story behind Joshua’s clue."}
+{owner:2,text:"As a kid, I played for Team USA on an under-12 basketball team at a tournament in Australia.",icon:"🏀",story:"Benjamin will share how Joshua played for Team USA in Australia before he turned 12."}
 ];
 export default function Home(){
 const[q,setQ]=useState(0);const[vote,setVote]=useState<number|null>(null);const[locked,setLocked]=useState(false);const[revealed,setRevealed]=useState(false);const[score,setScore]=useState(0);const[spinning,setSpinning]=useState(false);const spinTimer=useRef<ReturnType<typeof setTimeout>|null>(null);const[clock,setClock]=useState(ROUND_SECONDS);const[timeUp,setTimeUp]=useState(false);
