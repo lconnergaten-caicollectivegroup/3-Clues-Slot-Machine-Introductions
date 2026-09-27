@@ -5,7 +5,7 @@ export const clues = [
 {owner:2,text:"Mystery clue from Joshua.",icon:"✨",story:"Benjamin will share the story behind Joshua’s clue."},
 {owner:1,text:"My first-ever LinkedIn post had over 1 million views.",icon:"📈",story:"LaShea will share the story behind Benjamin’s first-ever LinkedIn post hitting over 1 million views."},
 {owner:0,text:"I helped deliver a baby in a car.",icon:"👶🏾",story:"Joshua will share how LaShea helped deliver a baby in a car."},
-{owner:1,text:"Second mystery clue from Benjamin.",icon:"🎲",story:"LaShea will share the story behind Benjamin’s clue."},
+{owner:1,text:"I’ve earned 9 associate degrees.",icon:"🎓",story:"LaShea will share how Benjamin earned 9 associate degrees."},
 {owner:2,text:"Second mystery clue from Joshua.",icon:"💫",story:"Benjamin will share the story behind Joshua’s clue."}
 ];
 export const ROUND_SECONDS = 15;
