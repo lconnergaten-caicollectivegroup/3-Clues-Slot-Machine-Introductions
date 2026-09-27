@@ -321,3 +321,4 @@ html{background:#05081d}
  .pot.is-float .pot-count{font-size:10px!important;padding:1px 6px!important;margin-top:-2px}
  header::before{inset:-8px!important}
 }
+.reel-symbol img.joshua-reel-symbol{object-fit:cover!important;object-position:50% 25%!important}
