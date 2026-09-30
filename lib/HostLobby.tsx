@@ -1,15 +1,13 @@
 import Image from "next/image";
 import {QRCodeSVG} from "qrcode.react";
 import {PIN} from "./game";
-import {landmarks} from "./LandmarkReels";
-import HowToPlay from "./HowToPlay";
 
 export default function HostLobby({url,players}:{url:string;players:number}){
- return <div className="reel join-reel"><div className="join-layout">
-  <div className="join-details"><h2>SCAN TO JOIN</h2><div className="qr"><QRCodeSVG value={url} size={175} includeMargin/></div><p><a href={url}>{url}</a></p><div className="pinCard">Course PIN <b>{PIN}</b></div><p>{players} players connected · Use real names so we can announce the winner.</p></div>
-  <div className="campus-showcase" aria-label="USD campus photo slideshow">
-   {landmarks.map((landmark,i)=><div className="campus-slide" key={landmark.src} style={{animationDelay:`${i*4}s`}}><Image src={landmark.src} alt={landmark.label} fill sizes="(max-width: 650px) 85vw, 420px"/><span>{landmark.label}</span></div>)}
-   <p>10 USD CAMPUS SPOTS • EVERY ONE APPEARS IN THE REELS</p>
+ return <div className="reel join-reel clean-lobby">
+  <div className="lobby-welcome"><span>WELCOME TO THE GAME</span><h2>Join Three of a Kind</h2><p>Scan the code or tap the button on your phone.</p></div>
+  <div className="join-layout">
+   <div className="join-details"><div className="qr"><QRCodeSVG value={url} size={160} includeMargin title="Scan to join the live game"/></div><a className="lobby-join-button" href={url} target="_blank" rel="noreferrer">JOIN ON THIS DEVICE ↗</a><div className="pinCard"><span>Course PIN</span><b>{PIN}</b></div></div>
+   <div className="lobby-info"><Image className="lobby-campus" src="/landmarks/photos/mother-rosalie-hill-hall.jpg" alt="USD SOLES building" width={420} height={200}/><div className="lobby-count"><b>{players}</b><span>participants connected</span></div><p>Use your real first and last name.</p><p className="lobby-wait">Waiting for the host to start…</p></div>
   </div>
- </div><HowToPlay/></div>
+ </div>
 }
