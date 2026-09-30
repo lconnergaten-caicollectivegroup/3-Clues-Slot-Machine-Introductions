@@ -328,3 +328,29 @@ html{background:#05081d}
 .live-restart{padding:12px 16px;border:2px solid #8b256d;border-radius:12px;background:white;color:#282049;font-weight:800;cursor:pointer}
 .live-restart:disabled{opacity:.5;cursor:wait}
 @media(max-width:650px){.tally-label{flex-wrap:wrap}.tally-label em{order:3}.dashboard-tally{padding:12px}}
+
+/* Keep clue, controls and class percentages together on the host screen. */
+.host-board{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start}
+.host-board>.mysteries{grid-column:1/-1;margin:0;gap:10px}
+.host-board>.machine{margin:0;min-width:0}
+.host-vote-panel{padding:18px;border:2px solid #f6ca77;border-radius:18px;background:#171033;color:#fff;position:sticky;top:12px}
+.host-vote-panel>h2{font-size:18px;color:#ffe27a;margin:0 0 8px}.host-vote-panel>p{font-size:14px}
+.host-vote-panel .room-tally h2{font-size:21px}.host-vote-panel .tally-label em{display:none}
+.host-vote-panel .tally-label b{font-size:17px}.host-vote-panel .tally-label span{font-size:30px}
+.host-console{max-width:1440px;padding:12px 20px}.host-console header{padding:10px 18px;margin-bottom:8px;gap:8px}
+.host-console .header-meta,.host-console .tagline,.host-console .team,.host-console .title-suit{display:none}
+.host-console .title-text{font-size:32px}.host-console .score{width:auto;height:auto;padding:6px 12px}
+.host-console .host-tools{margin:8px 0;padding:8px;display:flex;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px}
+.host-console .mysteries .person{display:flex;align-items:center;justify-content:center;gap:10px;padding:6px}
+.host-console .mysteries .person svg,.host-console .mysteries .person img{max-height:56px;width:auto}
+.host-console .mysteries .person small{font-size:11px}
+.host-console .reel{min-height:0;padding:12px}.host-console .reel h2{font-size:clamp(22px,2.4vw,32px);margin:10px 0}
+.host-console .reel-icon{font-size:28px}.host-console .prompt{font-size:18px;margin:8px}
+.host-console .actions{padding:8px}.host-console .spin{padding:10px 20px;font-size:16px}
+.host-console .reveal{padding:12px}.host-console .reveal>h2{font-size:28px;margin:6px}
+.host-console .story-card{padding:10px;margin:8px auto}.host-console .story-card p{font-size:15px}
+.host-console .join-reel .how-to-play,.host-console .campus-showcase{display:none}
+.host-console .join-layout{display:block}.host-console .qr svg{width:130px;height:130px}
+.host-console .reveal>.spin{display:none}.host-console footer{margin:8px;padding:0}
+@media(min-width:950px){.host-console .landmark-reels{max-height:180px}.host-console .reel-symbol{height:125px}}
+@media(max-width:950px){.host-board{grid-template-columns:minmax(0,1fr)}.host-vote-panel{position:static}.host-console .title-text{font-size:28px}}
