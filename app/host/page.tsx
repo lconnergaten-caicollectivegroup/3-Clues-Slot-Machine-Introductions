@@ -3,7 +3,7 @@ import RoomTally from "../../lib/RoomTally";
 import BackstoryTimer from "../../lib/BackstoryTimer";
 import Leaderboard from "../../lib/Leaderboard";
 import {VictoryFanfare} from "../../lib/SoundFx";
-import {useCallback,useEffect,useState} from "react";
+import {useCallback,useEffect,useRef,useState} from "react";
 import HostLobby from "../../lib/HostLobby";
 import LandmarkReels from "../../lib/LandmarkReels";
 import PersonSilhouette from "../../lib/PersonSilhouette";
@@ -16,15 +16,38 @@ type Vote={id:string;question:number;choice:number};
 export default function Host(){
  const[authed,setAuthed]=useState(false);const[authMessage,setAuthMessage]=useState("");const[room,setRoom]=useState<Room|null>(null),[players,setPlayers]=useState<Player[]>([]),[votes,setVotes]=useState<Vote[]>([]),[url,setUrl]=useState(""),[clock,setClock]=useState(ROUND_SECONDS),[spinning,setSpinning]=useState(false),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
  useEffect(()=>{supabase.auth.getUser().then(({data})=>{if(data.user?.email?.toLowerCase()==="lconnergaten@caicollectivegroup.com")setAuthed(true)});const {data:listener}=supabase.auth.onAuthStateChange((_event,session)=>setAuthed(session?.user?.email?.toLowerCase()==="lconnergaten@caicollectivegroup.com"));return()=>listener.subscription.unsubscribe()},[]);
- useEffect(()=>{setUrl(`${location.origin}/play?pin=${encodeURIComponent(PIN)}`);const id=sessionStorage.getItem("three-kind-host");if(id)supabase.from("rooms").select("*").eq("id",id).single().then(({data})=>{if(data&&data.pin===PIN)setRoom(data as Room);else sessionStorage.removeItem("three-kind-host")})},[]);
- const refresh=useCallback(async()=>{if(!room)return;const[{data:r,error:roomError},{data:p,error:playerError},{data:v,error:voteError}]=await Promise.all([supabase.from("rooms").select("*").eq("id",room.id).single(),supabase.from("players").select("*").eq("room_id",room.id),supabase.from("votes").select("*").eq("room_id",room.id)]);const error=roomError||playerError||voteError;if(error){setMessage(`Live updates unavailable: ${error.message}`);return}if(r)setRoom(r as Room);setPlayers((p||[]) as Player[]);setVotes((v||[]) as Vote[])},[room?.id]);
- useEffect(()=>{if(!room)return;refresh();const timer=setInterval(refresh,1000);return()=>clearInterval(timer)},[room?.id,refresh]);
+ const changing=useRef(false);
+ useEffect(()=>{setUrl(`${location.origin}/play?pin=${encodeURIComponent(PIN)}`)},[]);
+ const refresh=useCallback(async()=>{
+  if(changing.current)return;
+  const {data:r,error}=await supabase.from("rooms").select("*").eq("pin",PIN).maybeSingle();
+  if(changing.current)return;
+  if(error){setMessage(`Live updates unavailable: ${error.message}`);return}
+  if(!r)return;
+  const [{data:p,error:pe},{data:v,error:ve}]=await Promise.all([supabase.from("players").select("*").eq("room_id",r.id),supabase.from("votes").select("*").eq("room_id",r.id)]);
+  if(changing.current)return;
+  if(pe||ve){setMessage(`Live updates unavailable: ${(pe||ve)!.message}`);return}
+  setRoom(r as Room);sessionStorage.setItem("three-kind-host",r.id);setPlayers((p||[]) as Player[]);setVotes((v||[]) as Vote[]);
+ },[]);
+ useEffect(()=>{if(!authed)return;refresh();const timer=setInterval(refresh,1000);return()=>clearInterval(timer)},[authed,refresh]);
  useEffect(()=>{if(room?.phase!=="voting")return;const deadline=new Date(room.updated_at||Date.now()).getTime()+ROUND_SECONDS*1000;const tick=()=>setClock(Math.max(0,Math.ceil((deadline-Date.now())/1000)));tick();const timer=setInterval(tick,250);return()=>clearInterval(timer)},[room?.current_question,room?.phase]);
  async function sendHostLink(){setAuthMessage("");const {error}=await supabase.auth.signInWithOtp({email:"lconnergaten@caicollectivegroup.com",options:{emailRedirectTo:`${location.origin}/host`,shouldCreateUser:true}});setAuthMessage(error?.message||"Check your CAI email for the sign-in link, then return to this screen.")}
  async function create(){setBusy(true);setMessage("");const{data:existing}=await supabase.from("rooms").select("*").ilike("pin",PIN).maybeSingle();if(existing){setRoom(existing as Room);sessionStorage.setItem("three-kind-host",existing.id);setMessage("Resumed the room using this course PIN.");setBusy(false);return}const{data,error}=await supabase.from("rooms").insert({pin:PIN}).select().single();if(data){setRoom(data as Room);sessionStorage.setItem("three-kind-host",data.id)}else setMessage(error?.message||"Could not create the room. Check the database setup.");setBusy(false)}
  async function restartLive(){if(!room||busy||spinning)return;if(!window.confirm("Restart the live game? Everyone will rejoin a fresh lobby with PIN SOLES#3. Previous results will be preserved."))return;setBusy(true);setMessage("");const{data,error}=await supabase.rpc("restart_live_game",{target_room:room.id});if(error)setMessage(error.message);else if(data){setRoom(data as Room);setPlayers([]);setVotes([]);setClock(ROUND_SECONDS);sessionStorage.setItem("three-kind-host",data.id);setMessage("New game ready. Players can rejoin using the same link and PIN.")}setBusy(false)}
- async function setPhase(phase:string,next=false){if(!room||busy)return;setBusy(true);setMessage("");if(phase==="final"){const{error}=await supabase.rpc("finalize_game_scores",{target_room:room.id});if(error){setMessage(`Could not score the game: ${error.message}`);setBusy(false);return}await refresh()}
- const q=next?Math.min(room.current_question+1,5):room.current_question;const{data,error}=await supabase.from("rooms").update({phase,current_question:q}).eq("id",room.id).select().single();if(data)setRoom(data as Room);else setMessage(error?.message||"Could not advance the game.");setBusy(false)}
+ async function setPhase(phase:string,next=false){
+  if(!room||changing.current)return;changing.current=true;setBusy(true);setMessage("");
+  try {
+   const {data:live,error:readError}=await supabase.from("rooms").select("*").eq("pin",PIN).single();
+   if(readError)throw readError;
+   if(live.id!==room.id){setRoom(live as Room);sessionStorage.setItem("three-kind-host",live.id);setMessage("Connected to the fresh room. Press the host control again to continue.");return}
+   if(phase==="final"){const{error}=await supabase.rpc("finalize_game_scores",{target_room:live.id});if(error)throw error}
+   const q=next?Math.min(live.current_question+1,clues.length-1):live.current_question;
+   const {data,error}=await supabase.from("rooms").update({phase,current_question:q}).eq("id",live.id).eq("pin",PIN).select().single();
+   if(error)throw error;
+   setRoom(data as Room);
+  }catch(error){console.error("Host advance failed",error);setMessage(`Could not advance: ${error instanceof Error?error.message:(error as {message?:string}).message||"Check your connection and try again."}`)}
+  finally{changing.current=false;setBusy(false)}
+ }
  function spinReveal(){if(spinning||busy)return;setSpinning(true);setTimeout(async()=>{await setPhase("reveal");setSpinning(false)},2200)}
  const q=room?.current_question||0,phase=room?.phase||"lobby",qv=votes.filter(v=>v.question===q),counts=people.map((_,i)=>qv.filter(v=>v.choice===i).length),revealed=progress(q,phase);
  if(!authed)return <main className="host host-console"><header><div className="header-meta"><span className="course">EdD Org Leadership · Collaborative Learning · LEAD-697-01</span><span className="date-badge">📅 Wednesday, September 30th</span></div><div className="header-brand"><span className="eyebrow"><a className="assignment" href="https://sandiego.instructure.com/courses/32844/assignments/453024" target="_blank" rel="noreferrer">Assignment · Triad Get-to-Know-You Introductions</a></span><h1 className="brand-title"><span className="title-suit" aria-hidden="true">♠</span><span className="title-text">THREE OF A KIND</span><span className="title-suit" aria-hidden="true">♦</span></h1></div><div className="header-right"><div className="team"><b>Team Members</b><span>LaShea Conner-Gaten</span><span>Benjamin Frandsen</span><span>Joshua Lewis</span></div></div></header><section className="machine"><div className="reel"><div><h2>Host sign-in</h2><p>The host link will be emailed to LaShea’s CAI address.</p></div></div><div className="actions"><button className="spin" onClick={sendHostLink}>EMAIL HOST LINK</button></div><p role="status" className="notice">{authMessage}</p></section></main>;
