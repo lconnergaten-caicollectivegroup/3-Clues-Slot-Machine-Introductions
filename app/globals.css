@@ -322,3 +322,9 @@ html{background:#05081d}
  header::before{inset:-8px!important}
 }
 .reel-symbol img.joshua-reel-symbol{object-fit:cover!important;object-position:50% 25%!important}
+
+/* Per-clue live voting controls. */
+.dashboard-tally{margin:20px auto;padding:20px;border:2px solid #f3c469;border-radius:18px;background:#171033;max-width:720px}
+.live-restart{padding:12px 16px;border:2px solid #8b256d;border-radius:12px;background:white;color:#282049;font-weight:800;cursor:pointer}
+.live-restart:disabled{opacity:.5;cursor:wait}
+@media(max-width:650px){.tally-label{flex-wrap:wrap}.tally-label em{order:3}.dashboard-tally{padding:12px}}

@@ -10,13 +10,13 @@ import PersonSilhouette from "../../../lib/PersonSilhouette";
 import {PIN,people,clues,progress,ROUND_SECONDS,readerFor} from "../../../lib/game";
 import {supabase} from "../../../lib/supabase";
 
-type Room={id:string;phase:string;current_question:number};
+type Room={id:string;pin:string;phase:string;current_question:number};
 type Player={id:string;display_name:string;score:number;total_correct_ms:number};
 type Vote={question:number;choice:number};
 export default function HostScreen(){
  const[authed,setAuthed]=useState<boolean|null>(null),[roomId,setRoomId]=useState(""),[room,setRoom]=useState<Room|null>(null),[players,setPlayers]=useState<Player[]>([]),[votes,setVotes]=useState<Vote[]>([]),[clock,setClock]=useState(ROUND_SECONDS),[landing,setLanding]=useState(false),[error,setError]=useState("");
  useEffect(()=>{const id=new URLSearchParams(location.search).get("room")||sessionStorage.getItem("three-kind-host")||"";setRoomId(id);supabase.auth.getUser().then(({data})=>setAuthed(data.user?.email?.toLowerCase()==="lconnergaten@caicollectivegroup.com"));const {data:listener}=supabase.auth.onAuthStateChange((_event,session)=>setAuthed(session?.user?.email?.toLowerCase()==="lconnergaten@caicollectivegroup.com"));return()=>listener.subscription.unsubscribe()},[]);
- useEffect(()=>{if(!authed||!roomId)return;let active=true;async function refresh(){const[{data:r,error:e},{data:p},{data:v}]=await Promise.all([supabase.from("rooms").select("*").eq("id",roomId).single(),supabase.from("players").select("*").eq("room_id",roomId),supabase.from("votes").select("question,choice").eq("room_id",roomId)]);if(!active)return;if(e){setError(e.message);return}if(r)setRoom(r as Room);setPlayers((p||[]) as Player[]);setVotes((v||[]) as Vote[])}refresh();const timer=setInterval(refresh,1000);return()=>{active=false;clearInterval(timer)}},[authed,roomId]);
+ useEffect(()=>{if(!authed||!roomId)return;let active=true;async function refresh(){const[{data:r,error:e},{data:p,error:pe},{data:v,error:ve}]=await Promise.all([supabase.from("rooms").select("*").eq("id",roomId).single(),supabase.from("players").select("*").eq("room_id",roomId),supabase.from("votes").select("question,choice").eq("room_id",roomId)]);if(!active)return;if(e||pe||ve){setError((e||pe||ve)!.message);return}setError("");if(r&&r.pin!==PIN){const{data:current}=await supabase.from("rooms").select("*").eq("pin",PIN).single();if(active&&current){setRoomId(current.id);setRoom(current as Room);setPlayers([]);setVotes([])}return}if(r)setRoom(r as Room);setPlayers((p||[]) as Player[]);setVotes((v||[]) as Vote[])}refresh();const timer=setInterval(refresh,1000);return()=>{active=false;clearInterval(timer)}},[authed,roomId]);
  useEffect(()=>{if(room?.phase!=="voting")return;setClock(ROUND_SECONDS);const timer=setInterval(()=>setClock(v=>Math.max(0,v-1)),1000);return()=>clearInterval(timer)},[room?.phase,room?.current_question]);
  useEffect(()=>{if(room?.phase!=="reveal")return;setLanding(true);const timer=setTimeout(()=>setLanding(false),2200);return()=>clearTimeout(timer)},[room?.phase,room?.current_question]);
  if(authed===null)return <main className="host screen-only"><p className="notice">Opening the screen share view…</p></main>;
@@ -32,6 +32,8 @@ export default function HostScreen(){
  {phase==="results"&&<div className="reel"><RoomTally counts={counts}/></div>}
  {phase==="reveal"&&landing&&<div className="reel slot-reel"><div className="slot-content"><LandmarkReels spinning round={q}/><p className="spin-callout">LEVER PULLED — REVEALING…</p></div></div>}
  {phase==="reveal"&&!landing&&<div className="reveal"><LandmarkReels revealOwner={clues[q].owner} round={q}/><span>THE CLUE BELONGS TO…</span><h2>{people[clues[q].owner]}!</h2><div className="story-card"><b>THE BACKSTORY</b><BackstoryTimer key={q}/><p className="teller">🎤 Told by {readerFor(clues[q].owner)}</p><p>{clues[q].story}</p></div></div>}
+ {phase==="reveal"&&!landing&&<section className="dashboard-tally"><RoomTally counts={counts}/></section>}
+ {error&&<p role="alert" className="notice">Live updates unavailable: {error}</p>}
  {phase==="final"&&<div className="reveal"><VictoryFanfare/>{winner&&<div className="award"><div className="confetti" aria-hidden="true">🎉 ✨ 🎊 ✨ 🎉</div><span>LEAD 697-01 · JACKPOT CHAMPION</span><h2 className="winner-name">🏆 {winner.display_name}</h2><p className="winner-score">{winner.score||0}/6 correct</p><p>Best at reading the room — congratulations!</p><p className="prize">🎁 Prize: $25 virtual Visa card — sent today to your USD student email</p></div>}<Leaderboard players={players}/><p className="fine">Most correct wins. Ties go to the fastest correct answers.</p></div>}
  </section><footer>Three people • Six clues • One winner · <a href="https://www.sandiego.edu/facilities/building-gallery.php" target="_blank" rel="noreferrer">USD campus photos</a></footer></main>
 }
