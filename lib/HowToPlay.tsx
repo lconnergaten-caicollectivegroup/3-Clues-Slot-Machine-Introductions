@@ -11,7 +11,7 @@ export default function HowToPlay({mode="live",compact=false}:{mode?:"solo"|"liv
   ["🎤","Hear the backstory from our team","A teammate will share the real story behind each clue."],
   ["🏆","Top guesser wins a prize","Every right answer fills your pot of gold. The top guesser wins a prize!"]
  ]:[
-  ["📱","Join on your phone","Scan the QR code, enter the course PIN, and use your real first and last name."],
+  ["📱","Join on your phone","Scan the QR code, enter the course PIN, and choose any name or nickname you like."],
   ["🔍","Read the clue","Each clue is a true fact about LaShea, Benjamin, or Joshua."],
   ["⏱️",`Guess in ${ROUND_SECONDS} seconds`,"Tap who you think it is, then LOCK IN before time runs out."],
   ["🎰","Watch the lever pull","The host pulls the lever, the reels spin, and the owner is revealed."],
